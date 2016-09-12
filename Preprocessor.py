@@ -2,14 +2,14 @@
 
 from bs4 import BeautifulSoup
 import re
-
+import urllib2
 
 class Preprocessor:
 	colIndex = 0
 	wordCorpusToColIndexMap = {}
 	nextPositionInFile = 0
-	fileFeatureVector = open("/home/aj/dev/tryouts/FeatureVector", "w+")
-	fileArticleSeekPosition = open("/home/aj/dev/tryouts/Article-SeekPosition", "w+")
+	fileFeatureVector = open("./FeatureVector", "w+")
+	fileArticleSeekPosition = open("./Article-SeekPosition", "w+")
 
 	baseFileName = 'http://web.cse.ohio-state.edu/~srini/674/public/reuters/reut2-'
 	baseFileExtension = '.sgm'
@@ -19,11 +19,11 @@ class Preprocessor:
 		a = 10
 
 	def init_file_parsing(self):
-		for a in range(0,1):
+		for a in range(0,22):
 			file_name = self.baseFileName + str(a).zfill(3) + self.baseFileExtension
-			file_name = '/Users/kalyan/Downloads/reut2-000.sgm'
+			# file_name = '/Users/kalyan/Downloads/reut2-000.sgm'
 			print file_name
-			file_handle = open(file_name,'r')
+			file_handle = urllib2.urlopen(file_name)
 			file_handle.readline()
 			xml_content =  '<a>'
 			xml_content += file_handle.read()
@@ -33,7 +33,7 @@ class Preprocessor:
 			#print soup.prettify()
 			for article in soup.find_all('REUTERS'):
 				if article.TITLE:
-					print article.TITLE.string;
+					#print article.TITLE.string
 					title = self.removeTags(article.TITLE.string)
 					#print self.myTokenizer(title, self.stopWords)
 				else:
@@ -80,8 +80,8 @@ class Preprocessor:
 		return re.sub('<[^<>]+>', '', body)
 
 	def storeToFiles(self,articleWiseWordFreqMap, articleId):
-		Preprocessor.storeArticleSeekPosition(articleId)
-		nextPositionInFile = self.storeFeatureVector(articleWiseWordFreqMap)
+		self.storeArticleSeekPosition(articleId)
+		Preprocessor.nextPositionInFile = self.storeFeatureVector(articleWiseWordFreqMap)
 
 	def storeArticleSeekPosition(self,articleId):
 		Preprocessor.fileArticleSeekPosition.write(str(articleId)+"-"+str(Preprocessor.nextPositionInFile)+"\n")
@@ -89,7 +89,8 @@ class Preprocessor:
 	def storeFeatureVector(self,articleWiseWordFreqMap):
 		for key, value in articleWiseWordFreqMap.iteritems():
 			Preprocessor.fileFeatureVector.write(key+"-"+str(value)+"\t")
-		nextPositionInFile = Preprocessor.fileFeatureVector.tell()
+		Preprocessor.fileFeatureVector.write("\n")
+		return Preprocessor.fileFeatureVector.tell()
 
 
 newPrep = Preprocessor()
