@@ -9,6 +9,11 @@ class Preprocessor:
 	colIndex = 0
 	wordCorpusToColIndexMap = {}
 
+	nextPositionInFile = 0
+
+	fileFeatureVector = open("/home/aj/dev/tryouts/FeatureVector", "w+")
+	fileArticleSeekPosition = open("/home/aj/dev/tryouts/Article-SeekPosition", "w+")
+
 
 	try1File = open("/home/aj/dev/tryouts/try1")
 
@@ -28,7 +33,6 @@ class Preprocessor:
 				self.addToCorpus(word.lower())
 				# If Feature Vector is a map (position, count), get the position from the above line
 				self.addToFreqMap(word.lower(), articleWiseWordFreqMap)
-				
 		return articleWiseWordFreqMap
 
 	def containsDigits(self,word):
@@ -42,7 +46,6 @@ class Preprocessor:
 			dict[word] = 1
 		else:
 			dict[word] += 1
-		# return colIndex
 
 	def addToCorpus(self,word):
 		if(word not in Preprocessor.wordCorpusToColIndexMap):
@@ -53,20 +56,33 @@ class Preprocessor:
 	def removeTags(body):
 		return re.sub('<[^<>]+>', '', body)
 
-	abcd = """Stop by Tech Hub, 247.565 Ohio State's official technology store for exclusive
-			discounts on computers, tablets and software. A portion of Tech Hub sales
-			go back to student programs"""
+	def storeToFiles(articleWiseWordFreqMap, articleId):
+		storeArticleSeekPosition(articleId)
+		nextPositionInFile = storeFeatureVector(articleWiseWordFreqMap)
+
+	def storeArticleSeekPosition(articleId):
+		fileArticleSeekPosition.write(str(articleId)+"-"+str(nextPositionInFile)+"\n")
+
+	def storeFeatureVector(articleWiseWordFreqMap):
+		for key, value in articleWiseWordFreqMap.iteritems():
+			fileFeatureVector.write(key+"-"+str(value)+"\t")
+		nextPositionInFile = fileFeatureVector.tell()	
 
 
 
-	for article in soup.find_all("REUTERS"):
-		title = removeTags(article.TITLE.string)
-		body = removeTags(article.BODY.string)
-		myTokenizer(title, stopWords)
-		myTokenizer(body, stopWords)
 
-	#print len(tokenizedWords)
+p = Preprocessor()
 
-	# myTokenizer(abcd, stopWords, tokenizedWords)
-	# print tokenizedWords	
+for article in p.soup.find_all("REUTERS"):
+	title = removeTags(article.TITLE.string)
+	body = removeTags(article.BODY.string)
+	articleId = article['NEWID']
+	p.storeToFiles(myTokenizer(title + " " + body, stopWords), articleId)
+	# myTokenizer(body, stopWords)
 
+p.fileFeatureVector.close()
+p.fileArticleSeekPosition.close()
+#print len(tokenizedWords)
+
+# myTokenizer(abcd, stopWords, tokenizedWords)
+# print tokenizedWords	
