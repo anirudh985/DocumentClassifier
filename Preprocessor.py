@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 from bs4 import BeautifulSoup
+from stop_words import get_stop_words
+from itertools import izip
+from stemming.porter2 import stem
 import re
 import urllib2
 
@@ -13,12 +16,13 @@ class Preprocessor:
 
 	baseFileName = 'http://web.cse.ohio-state.edu/~srini/674/public/reuters/reut2-'
 	baseFileExtension = '.sgm'
-	stopWords = {'the': 1, 'for': 1, 'can': 1, 'could': 1, 'would': 1,'they': 1, 'there': 1, 'and': 1}
+	# stopWords = {'the': 1, 'for': 1, 'can': 1, 'could': 1, 'would': 1,'they': 1, 'there': 1, 'and': 1}
 
 	def __init__(self):
 		a = 10
 
 	def init_file_parsing(self):
+		stopWords = self.createStopWords()
 		for a in range(0,22):
 			file_name = self.baseFileName + str(a).zfill(3) + self.baseFileExtension
 			# file_name = '/Users/kalyan/Downloads/reut2-000.sgm'
@@ -44,9 +48,13 @@ class Preprocessor:
 					body = ''
 					# print self.myTokenizer(body, self.stopWords)
 				articleId = article['NEWID']
-				self.storeToFiles(self.myTokenizer(title + " " + body, Preprocessor.stopWords), articleId)
+				self.storeToFiles(self.myTokenizer(title + " " + body, stopWords), articleId)
 		Preprocessor.fileFeatureVector.close()
 		Preprocessor.fileArticleSeekPosition.close()
+
+	def createStopWords(self):
+		stopWordsList = get_stop_words('english')
+		return dict((word, i) for (word, i) in izip(stopWordsList, range(1,len(stopWordsList)+1)))
 
 	def myTokenizer(self, text, stopWords):
 		articleWiseWordFreqMap = {}
@@ -62,7 +70,7 @@ class Preprocessor:
 		return len(re.findall('\d+', word)) != 0
 
 	def isValidWord(self, word, stopWords):
-		return len(word) > 2 and word.lower() not in stopWords and not self.containsDigits(word)
+		return len(word) > 2 and stem(word.lower()) not in stopWords and not self.containsDigits(word)
 
 	def addToFreqMap(self, word, dict):
 		if (word not in dict):
