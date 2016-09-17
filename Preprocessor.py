@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from __future__ import division
 from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
 from itertools import izip
@@ -9,7 +10,6 @@ import urllib2
 import sys
 import math
 import time
-from __future__ import division
 
 class Preprocessor:
 	colIndex = 0
@@ -25,18 +25,18 @@ class Preprocessor:
 
 	def __init__(self):
 		if(sys.argv[1] == 'Y' or sys.argv[1] == 'y'):
-			self.fileFeatureVector = open("./FeatureVector", "r")
-			self.file_word_corpus_position = open('./wordPosition','r')
-			self.file_word_numDocs = open('./wordNumDocs', 'r')
-		else:
 			self.fileFeatureVector = open("./FeatureVector", "w+")
-			self.file_word_corpus_position = open('./wordPosition', 'w+')
-			self.file_word_numDocs = open('./wordNumDocs','w+')
+			self.file_word_corpus_position = open('./wordPosition','w+')
+			self.file_word_numDocs = open('./wordNumDocs', 'w+')
+		else:
+			self.fileFeatureVector = open("./FeatureVector", "r")
+			self.file_word_corpus_position = open('./wordPosition', 'r')
+			self.file_word_numDocs = open('./wordNumDocs','r')
 		# self.fileArticleSeekPosition = open("./Article-SeekPosition", "w+")
 
 	def init_file_parsing(self):
 		self.stopWords = self.createStopWords()
-		for a in range(0,21):
+		for a in range(0,22):
 			file_name = self.baseFileName + str(a).zfill(3) + self.baseFileExtension
 			# file_name = '/Users/kalyan/Downloads/reut2-000.sgm'
 			print file_name
@@ -177,7 +177,7 @@ class Preprocessor:
 		Preprocessor.TotalDocs = self.loadSingleLineFileIntoMap("./wordNumDocs", Preprocessor.wordToNumDocsMap, '\t', '-')
 
 
-	def construct_feature_vetor_matrix(self, doNotLoadStoredMaps = 'Y', isFeatureTfIdf = 0):
+	def construct_feature_vetor_matrix(self, doNotLoadStoredMaps = 'Y', isFeatureTfIdf = False):
 		if not (doNotLoadStoredMaps == 'Y' or doNotLoadStoredMaps == 'y'):
 			self.loadStoredMaps()
 		if isFeatureTfIdf:
@@ -195,13 +195,13 @@ class Preprocessor:
 						(word, wordFreq) = wordFreqPair.split('-')
 						if word in Preprocessor.wordCorpusToColIndexMap and Preprocessor.wordCorpusToColIndexMap[word] < corpus_length:
 							if isFeatureTfIdf:
-								tf = wordFreq
+								tf = int(wordFreq)
 								idf = 0
 								if Preprocessor.TotalDocs > 0 and Preprocessor.wordToNumDocsMap[word] > 0:
 									idf = math.log(Preprocessor.TotalDocs/Preprocessor.wordToNumDocsMap[word])
 								vector[Preprocessor.wordCorpusToColIndexMap[word]] = tf * idf
 							else:
-								vector[Preprocessor.wordCorpusToColIndexMap[word]] = wordFreq
+								vector[Preprocessor.wordCorpusToColIndexMap[word]] = int(wordFreq)
 						# else:
 						# 	print (word, wordFreq)
 				outputString = ''
