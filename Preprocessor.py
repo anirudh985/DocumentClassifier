@@ -7,11 +7,14 @@ from nltk.stem.snowball import SnowballStemmer
 import re
 import urllib2
 import sys
+import math
 
 class Preprocessor:
 	colIndex = 0
 	wordCorpusToColIndexMap = {}
+	wordToNumDocsMap = {}
 	nextPositionInFile = 0
+	TotalDocs = 0
 	stemmer = SnowballStemmer("english")
 	baseFileName = 'http://web.cse.ohio-state.edu/~srini/674/public/reuters/reut2-'
 	baseFileExtension = '.sgm'
@@ -50,6 +53,7 @@ class Preprocessor:
 					body = ''
 					# print self.myTokenizer(body, self.stopWords)
 				articleId = article['NEWID']
+				Preprocessor.TotalDocs += 1
 				self.storeToFiles(self.myTokenizer(title, body), articleId)
 		self.dump_wordcorpus_columnindex_map()
 		self.file_word_corpus_position.close()
@@ -61,7 +65,15 @@ class Preprocessor:
 		return stopWordsList
 			#dict((word, i) for (word, i) in izip(stopWordsList, range(1,len(stopWordsList)+1)))
 
-	def myTokenizer(self, title, body, stopWords):
+	def update_word_to_doc_map(self,articleWiseWordFreqMap):
+		for key, value in articleWiseWordFreqMap.iteritems():
+			if key not in Preprocessor.wordToNumDocsMap:
+				Preprocessor.wordToNumDocsMap[key] = 1
+			else:
+				Preprocessor.wordToNumDocsMap[key] += 1
+
+
+	def myTokenizer(self, title, body):
 		articleWiseWordFreqMap = {}
 		listOfTitleWords = re.findall("\w+", title)
 		listOfBodyWords = re.findall("\w+", body)
@@ -69,6 +81,7 @@ class Preprocessor:
 		bodyTextWeight = 1
 		self.processWordsAndAddToFreqMap(listOfTitleWords, titleWeight, articleWiseWordFreqMap)
 		self.processWordsAndAddToFreqMap(listOfBodyWords, bodyTextWeight, articleWiseWordFreqMap)
+		self.update_word_to_doc_map(articleWiseWordFreqMap)
 		return articleWiseWordFreqMap
 
 	def processWordsAndAddToFreqMap(self, listOfWords, weightOfWord, articleWiseWordFreqMap):
@@ -108,9 +121,12 @@ class Preprocessor:
 		self.fileArticleSeekPosition.write(str(articleId)+"-"+str(Preprocessor.nextPositionInFile)+"\n")
 
 	def storeFeatureVector(self,articleWiseWordFreqMap):
+		outputString = ""
 		for key, value in articleWiseWordFreqMap.iteritems():
-			self.fileFeatureVector.write(key+"-"+str(value)+"\t")
-		self.fileFeatureVector.write("\n")
+			outputString += key+'-'+str(value)+'\t'
+		outputString = outputString[:-1]
+		outputString += '\n'
+		self.fileFeatureVector.write(outputString)
 		return self.fileFeatureVector.tell()
 
 	def dump_wordcorpus_columnindex_map(self):
@@ -123,9 +139,14 @@ class Preprocessor:
 			for line in fileobject:
 				(key, value) = line.split('-')
 				Preprocessor.wordCorpusToColIndexMap[key] = int(value)
+				if key not in Preprocessor.wordToNumDocsMap.keys:
+					Preprocessor.wordToNumDocsMap[key] = 1
+				else:
+					Preprocessor.wordToNumDocsMap[key] += 1
+			Preprocessor.TotalDocs += 1
 
-	def construct_feature_vetor_matrix(self, doLoadWordCorpus):
-		if (doLoadWordCorpus == 'Y' or doLoadWordCorpus == 'y'):
+	def construct_feature_vetor_matrix(self, doLoadWordCorpus = 'N', isFeatureTfIdf = 0):
+		if doLoadWordCorpus != 'Y' and doLoadWordCorpus != 'y':
 			self.load_wordcorpus_columnindex_map()
 		self.fileFinalFeatureVector = open("./FinalFeatureVector", "w+")
 		corpus_length = len(Preprocessor.wordCorpusToColIndexMap)
@@ -136,24 +157,35 @@ class Preprocessor:
 				for word in words:
 					wordRoots = word.split('-')
 					if wordRoots[0] in Preprocessor.wordCorpusToColIndexMap and Preprocessor.wordCorpusToColIndexMap[wordRoots[0]] < corpus_length:
-						vector[Preprocessor.wordCorpusToColIndexMap[wordRoots[0]]] = wordRoots[1]
+						if isFeatureTfIdf:
+							tf = wordRoots[1]
+							idf = 0
+							if Preprocessor.TotalDocs > 0 and Preprocessor.wordToNumDocsMap[wordRoots[0]] > 0:
+								idf = math.log(Preprocessor.TotalDocs/Preprocessor.wordToNumDocsMap[wordRoots[0]])
+							vector[Preprocessor.wordCorpusToColIndexMap[wordRoots[0]]] = tf * idf
+						else:
+							vector[Preprocessor.wordCorpusToColIndexMap[wordRoots[0]]] = wordRoots[1]
 					else:
 						print wordRoots
 				outputString = ''
 				for column in vector:
 					outputString += str(column)
 					outputString += '\t'
+				outputString = outputString[:-1]
+				outputString+= '\n'
 				self.fileFinalFeatureVector.write(outputString)
-				self.fileFinalFeatureVector.write('\n')
-		self.fileFinalFeatureVector.close();
+				# self.fileFinalFeatureVector.write('\n')
+		self.fileFinalFeatureVector.close()
 
 
 
 
 newPrep = Preprocessor()
-if(sys.argv[0] == 'Y' or sys.argv[0] == 'y'):
+if(sys.argv[1] == 'Y' or sys.argv[1] == 'y'):
 	newPrep.init_file_parsing()
-newPrep.construct_feature_vetor_matrix(sys.argv[0])
+generateTfIdf = (sys.argv[2] == 'Y') or (sys.argv[2] == 'y')
+newPrep.construct_feature_vetor_matrix(sys.argv[1],generateTfIdf)
+# newPrep.construct_feature_vetor_matrix()
 	# print len(tokenizedWords)
 
 	# myTokenizer(abcd, stopWords, tokenizedWords)
