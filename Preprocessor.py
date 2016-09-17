@@ -6,6 +6,7 @@ from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 import re
 import urllib2
+import sys
 
 class Preprocessor:
 	colIndex = 0
@@ -23,7 +24,7 @@ class Preprocessor:
 		self.fileArticleSeekPosition = open("./Article-SeekPosition", "w+")
 
 	def init_file_parsing(self):
-		stopWords = self.createStopWords()
+		self.stopWords = self.createStopWords()
 		for a in range(0,21):
 			file_name = self.baseFileName + str(a).zfill(3) + self.baseFileExtension
 			# file_name = '/Users/kalyan/Downloads/reut2-000.sgm'
@@ -49,40 +50,46 @@ class Preprocessor:
 					body = ''
 					# print self.myTokenizer(body, self.stopWords)
 				articleId = article['NEWID']
-				self.storeToFiles(self.myTokenizer(title + " " + body, stopWords), articleId)
-		self.dump_wordcorpus_colunmindex_map()
+				self.storeToFiles(self.myTokenizer(title, body), articleId)
+		self.dump_wordcorpus_columnindex_map()
 		self.file_word_corpus_position.close()
 		self.fileFeatureVector.close()
 		self.fileArticleSeekPosition.close()
-		self.construct_feature_vetor_matrix()
 
 	def createStopWords(self):
 		stopWordsList = set(stopwords.words('english'))
 		return stopWordsList
 			#dict((word, i) for (word, i) in izip(stopWordsList, range(1,len(stopWordsList)+1)))
 
-	def myTokenizer(self, text, stopWords):
+	def myTokenizer(self, title, body, stopWords):
 		articleWiseWordFreqMap = {}
-		listOfWords = re.findall("\w+", text)
+		listOfTitleWords = re.findall("\w+", title)
+		listOfBodyWords = re.findall("\w+", body)
+		titleWeight = 5
+		bodyTextWeight = 1
+		self.processWordsAndAddToFreqMap(listOfTitleWords, titleWeight, articleWiseWordFreqMap)
+		self.processWordsAndAddToFreqMap(listOfBodyWords, bodyTextWeight, articleWiseWordFreqMap)
+		return articleWiseWordFreqMap
+
+	def processWordsAndAddToFreqMap(self, listOfWords, weightOfWord, articleWiseWordFreqMap):
 		for word in listOfWords:
 			word_stem = Preprocessor.stemmer.stem(word)
-			if self.isValidWord(word_stem, stopWords):
+			if self.isValidWord(word_stem):
 				self.addToCorpus(word_stem.lower())
 				# If Feature Vector is a map (position, count), get the position from the above line
-				self.addToFreqMap(word_stem.lower(), articleWiseWordFreqMap)
-		return articleWiseWordFreqMap
+				self.addToFreqMap(word_stem.lower(), articleWiseWordFreqMap, weightOfWord)
 
 	def containsDigits(self, word):
 		return len(re.findall('\d+', word)) != 0
 
-	def isValidWord(self, word, stopWords):
-		return len(word) > 2 and word.lower() not in stopWords and not self.containsDigits(word)
+	def isValidWord(self, word):
+		return len(word) > 2 and word.lower() not in self.stopWords and not self.containsDigits(word)
 
-	def addToFreqMap(self, word, dict):
+	def addToFreqMap(self, word, dict, weight):
 		if word not in dict:
-			dict[word] = 1
+			dict[word] = weight
 		else:
-			dict[word] += 1
+			dict[word] += weight
 
 	def addToCorpus(self, word):
 		if word not in Preprocessor.wordCorpusToColIndexMap:
@@ -106,12 +113,20 @@ class Preprocessor:
 		self.fileFeatureVector.write("\n")
 		return self.fileFeatureVector.tell()
 
-	def dump_wordcorpus_colunmindex_map(self):
+	def dump_wordcorpus_columnindex_map(self):
 		for key, value in Preprocessor.wordCorpusToColIndexMap.iteritems():
 			self.file_word_corpus_position.write(key+"-"+str(value)+"\t")
 		self.file_word_corpus_position.write('\n')
 
-	def construct_feature_vetor_matrix(self):
+	def load_wordcorpus_columnindex_map(self):
+		with open("./wordPosition") as fileobject:
+			for line in fileobject:
+				(key, value) = line.split('-')
+				Preprocessor.wordCorpusToColIndexMap[key] = int(value)
+
+	def construct_feature_vetor_matrix(self, doLoadWordCorpus):
+		if (doLoadWordCorpus == 'Y' or doLoadWordCorpus == 'y'):
+			self.load_wordcorpus_columnindex_map()
 		self.fileFinalFeatureVector = open("./FinalFeatureVector", "w+")
 		corpus_length = len(Preprocessor.wordCorpusToColIndexMap)
 		with open("./FeatureVector") as fileobject:
@@ -136,7 +151,9 @@ class Preprocessor:
 
 
 newPrep = Preprocessor()
-newPrep.init_file_parsing()
+if(sys.argv[0] == 'Y' or sys.argv[0] == 'y'):
+	newPrep.init_file_parsing()
+newPrep.construct_feature_vetor_matrix(sys.argv[0])
 	# print len(tokenizedWords)
 
 	# myTokenizer(abcd, stopWords, tokenizedWords)
