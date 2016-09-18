@@ -15,6 +15,8 @@ class Preprocessor:
 	colIndex = 0
 	wordCorpusToColIndexMap = {}
 	wordToNumDocsMap = {}
+	articleIdTopicsClassLabelMap = {}
+	articleIdPlacesClassLabelMap = {}
 	nextPositionInFile = 0
 	TotalDocs = 0
 	stemmer = SnowballStemmer("english")
@@ -28,6 +30,8 @@ class Preprocessor:
 			self.fileFeatureVector = open("./FeatureVector", "w+")
 			self.file_word_corpus_position = open('./wordPosition','w+')
 			self.file_word_numDocs = open('./wordNumDocs', 'w+')
+			self.file_topics_classlabels = open('./articleTopicsClassLables', 'w+')
+			self.file_places_classlabels = open('./articlePlacesClassLables', 'w+')
 		else:
 			self.fileFeatureVector = open("./FeatureVector", "r")
 			self.file_word_corpus_position = open('./wordPosition', 'r')
@@ -49,6 +53,7 @@ class Preprocessor:
 			soup = BeautifulSoup(xml_content, "xml")
 			#print soup.prettify()
 			for article in soup.find_all('REUTERS'):
+				articleId = article['NEWID']
 				if article.TITLE:
 					#print article.TITLE.string
 					title = self.removeTags(article.TITLE.string)
@@ -60,14 +65,34 @@ class Preprocessor:
 				else:
 					body = ''
 					# print self.myTokenizer(body, self.stopWords)
-				articleId = article['NEWID']
+				if article.TOPICS:
+					topicsClassLabels = ""
+					for topic in article.TOPICS.find_all('D'):
+						topicsClassLabels += topic.string + ","
+					topicsClassLabels = topicsClassLabels[:-1]
+					Preprocessor.articleIdTopicsClassLabelMap[articleId] = topicsClassLabels
+
+				if article.PLACES:
+					placeClassLabels = ""
+					for place in article.PLACES.find_all('D'):
+						placeClassLabels += place.string + ","
+					placeClassLabels = placeClassLabels[:-1]
+					Preprocessor.articleIdPlacesClassLabelMap[articleId] = placeClassLabels
+
 				Preprocessor.TotalDocs += 1
 				# self.storeToFiles(self.myTokenizer(title, body), articleId)
 				self.storeFeatureVector(self.myTokenizer(title, body))
-		self.dump_wordcorpus_columnindex_map()
-		self.dump_word_to_numDocs_map()
-		self.file_word_corpus_position.close()
 		self.fileFeatureVector.close()
+		self.dump_wordcorpus_columnindex_map()
+		self.file_word_corpus_position.close()
+		self.dump_word_to_numDocs_map()
+		self.file_word_numDocs.close()
+		self.dump_articleId_TopicsClassLabels_map()
+		self.file_topics_classlabels.close()
+		self.dump_articleId_PlacesClassLabels_map()
+		self.file_places_classlabels.close()
+
+
 		# self.fileArticleSeekPosition.close()
 
 	def createStopWords(self):
@@ -154,6 +179,12 @@ class Preprocessor:
 
 	def dump_word_to_numDocs_map(self):
 		self.dumpFile(Preprocessor.wordToNumDocsMap, self.file_word_numDocs, outerSplitSeparator="\t", headerLine=Preprocessor.TotalDocs)
+
+	def dump_articleId_TopicsClassLabels_map(self):
+		self.dumpFile(Preprocessor.articleIdTopicsClassLabelMap, self.file_topics_classlabels, outerSplitSeparator="\t")
+
+	def dump_articleId_PlacesClassLabels_map(self):
+		self.dumpFile(Preprocessor.articleIdPlacesClassLabelMap, self.file_places_classlabels, outerSplitSeparator="\t")
 
 	def loadLineByLineFileIntoMap(self, filePath, someMap, splitSeparator):
 		with open(filePath) as fileobject:
