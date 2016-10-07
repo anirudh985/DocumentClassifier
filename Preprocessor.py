@@ -22,49 +22,51 @@ class Preprocessor:
 	stemmer = SnowballStemmer("english")
 	baseFileName = 'http://web.cse.ohio-state.edu/~srini/674/public/reuters/reut2-'
 	baseFileExtension = '.sgm'
-	# stop_words = set(stopwords.words('english'))
-	# stopWords = {'the': 1, 'for': 1, 'can': 1, 'could': 1, 'would': 1,'they': 1, 'there': 1, 'and': 1}
 
-	def __init__(self):
-		if(sys.argv[1] == 'Y' or sys.argv[1] == 'y'):
-			self.fileFeatureVector = open("./FeatureVector", "w+")
+	def __init__(self, doParse):
+		if(doParse == 'Y' or doParse == 'y'):
+			self.fileFeatureVector = open("./BagOfWords", "w+")
 			self.file_word_corpus_position = open('./wordPosition','w+')
 			self.file_word_numDocs = open('./wordNumDocs', 'w+')
-			self.file_topics_classlabels = open('./articleTopicsClassLables', 'w+')
-			self.file_places_classlabels = open('./articlePlacesClassLables', 'w+')
-		else:
-			self.fileFeatureVector = open("./FeatureVector", "r")
-			self.file_word_corpus_position = open('./wordPosition', 'r')
-			self.file_word_numDocs = open('./wordNumDocs','r')
-		# self.fileArticleSeekPosition = open("./Article-SeekPosition", "w+")
+			self.file_topics_classlabels = open('./articleTopicsClassLabels', 'w+')
+			self.file_places_classlabels = open('./articlePlacesClassLabels', 'w+')
+			self.fileArticleSeekPosition = open("./ArticleIdSeekPosition", "w+")
+		# else:
+		# 	self.fileFeatureVector = open("./BagOfWords", "r")
+		# 	self.file_word_corpus_position = open('./wordPosition', 'r')
+		# 	self.file_word_numDocs = open('./wordNumDocs','r')
+		# 	self.fileArticleSeekPosition = open("./ArticleIdSeekPosition", "r")
+			# print "process started"
 
 	def init_file_parsing(self):
 		self.stopWords = self.createStopWords()
 		for a in range(0,22):
 			file_name = self.baseFileName + str(a).zfill(3) + self.baseFileExtension
-			# file_name = '/Users/kalyan/Downloads/reut2-000.sgm'
 			print file_name
 			file_handle = urllib2.urlopen(file_name)
 			file_handle.readline()
 			xml_content =  '<a>'
 			xml_content += file_handle.read()
 			xml_content += '</a>'
-			#print xml_content
 			soup = BeautifulSoup(xml_content, "xml")
-			#print soup.prettify()
 			for article in soup.find_all('REUTERS'):
 				articleId = article['NEWID']
+				title=''
+				body=''
 				if article.TITLE:
-					#print article.TITLE.string
 					title = self.removeTags(article.TITLE.string)
-					#print self.myTokenizer(title, self.stopWords)
-				else:
-					title = ''
+				# else:
+				# 	title = ''
 				if article.BODY:
 					body = self.removeTags(article.BODY.string)
-				else:
-					body = ''
-					# print self.myTokenizer(body, self.stopWords)
+
+				if title == '' and body == '' and article.TEXT:
+					body = self.removeTags(article.TEXT.string)
+				# else:
+				# 	body = ''
+				if(title == '' and body == ''):
+					continue
+
 				if article.TOPICS:
 					topicsClassLabels = ""
 					for topic in article.TOPICS.find_all('D'):
@@ -80,8 +82,8 @@ class Preprocessor:
 					Preprocessor.articleIdPlacesClassLabelMap[articleId] = placeClassLabels
 
 				Preprocessor.TotalDocs += 1
-				# self.storeToFiles(self.myTokenizer(title, body), articleId)
-				self.storeFeatureVector(self.myTokenizer(title, body))
+				self.storeToFiles(self.myTokenizer(title, body), articleId)
+				# self.storeFeatureVector(self.myTokenizer(title, body), articleId)
 		self.fileFeatureVector.close()
 		self.dump_wordcorpus_columnindex_map()
 		self.file_word_corpus_position.close()
@@ -93,12 +95,10 @@ class Preprocessor:
 		self.file_places_classlabels.close()
 
 
-		# self.fileArticleSeekPosition.close()
+		self.fileArticleSeekPosition.close()
 
 	def createStopWords(self):
-		# stopWordsList = set(stopwords.words('english'))
 		stopWordsList = stopwords.words('english')
-		# return stopWordsList
 		return dict((word, i) for (word, i) in izip(stopWordsList, range(1,len(stopWordsList)+1)))
 
 	def update_word_to_doc_map(self,articleWiseWordFreqMap):
@@ -149,21 +149,22 @@ class Preprocessor:
 	def removeTags(self,body):
 		return re.sub('<[^<>]+>', '', body)
 
-	# def storeToFiles(self,articleWiseWordFreqMap, articleId):
-	# 	self.storeArticleSeekPosition(articleId)
-	# 	Preprocessor.nextPositionInFile = self.storeFeatureVector(articleWiseWordFreqMap)
-    #
-	# def storeArticleSeekPosition(self,articleId):
-	# 	self.fileArticleSeekPosition.write(str(articleId)+"-"+str(Preprocessor.nextPositionInFile)+"\n")
+	def storeToFiles(self,articleWiseWordFreqMap, articleId):
+		self.storeArticleSeekPosition(articleId)
+		Preprocessor.nextPositionInFile = self.storeFeatureVector(articleWiseWordFreqMap, articleId)
 
-	def storeFeatureVector(self,articleWiseWordFreqMap):
-		outputString = ""
+	def storeArticleSeekPosition(self,articleId):
+	 	self.fileArticleSeekPosition.write(str(articleId)+"-"+str(Preprocessor.nextPositionInFile)+"\n")
+
+	def storeFeatureVector(self,articleWiseWordFreqMap, articleId):
+		outputString = str(articleId)+"@"
 		for key, value in articleWiseWordFreqMap.iteritems():
 			outputString += key+'-'+str(value)+'\t'
-		outputString = outputString[:-1]
+		if(outputString[-1] != '@'):
+			outputString = outputString[:-1]
 		outputString += '\n'
 		self.fileFeatureVector.write(outputString)
-		# return self.fileFeatureVector.tell()
+		return self.fileFeatureVector.tell()
 
 	def dumpFile(self, someMap, filehandle, outerSplitSeparator, innerSplitSeparator = '-', headerLine = None):
 		if(headerLine != None):
@@ -181,10 +182,10 @@ class Preprocessor:
 		self.dumpFile(Preprocessor.wordToNumDocsMap, self.file_word_numDocs, outerSplitSeparator="\t", headerLine=Preprocessor.TotalDocs)
 
 	def dump_articleId_TopicsClassLabels_map(self):
-		self.dumpFile(Preprocessor.articleIdTopicsClassLabelMap, self.file_topics_classlabels, outerSplitSeparator="\t")
+		self.dumpFile(Preprocessor.articleIdTopicsClassLabelMap, self.file_topics_classlabels, outerSplitSeparator="\t", innerSplitSeparator="@")
 
 	def dump_articleId_PlacesClassLabels_map(self):
-		self.dumpFile(Preprocessor.articleIdPlacesClassLabelMap, self.file_places_classlabels, outerSplitSeparator="\t")
+		self.dumpFile(Preprocessor.articleIdPlacesClassLabelMap, self.file_places_classlabels, outerSplitSeparator="\t", innerSplitSeparator="@")
 
 	def loadLineByLineFileIntoMap(self, filePath, someMap, splitSeparator):
 		with open(filePath) as fileobject:
@@ -217,47 +218,88 @@ class Preprocessor:
 			fileName = "./FinalFeatureVector"
 		self.fileFinalFeatureVector = open(fileName, "w+")
 		corpus_length = len(Preprocessor.wordCorpusToColIndexMap)
-		with open("./FeatureVector") as fileobject:
+		with open("./BagOfWords") as fileobject:
 			for line in fileobject:
-				vector = [0] * corpus_length
-				words = line.split('\t')
-				if(len(words) > 1):
-					for wordFreqPair in words:
-						(word, wordFreq) = wordFreqPair.split('-')
-						if word in Preprocessor.wordCorpusToColIndexMap and Preprocessor.wordCorpusToColIndexMap[word] < corpus_length:
-							if isFeatureTfIdf:
-								tf = int(wordFreq)
-								idf = 0
-								if Preprocessor.TotalDocs > 0 and Preprocessor.wordToNumDocsMap[word] > 0:
-									idf = math.log(Preprocessor.TotalDocs/Preprocessor.wordToNumDocsMap[word])
-								vector[Preprocessor.wordCorpusToColIndexMap[word]] = tf * idf
-							else:
-								vector[Preprocessor.wordCorpusToColIndexMap[word]] = int(wordFreq)
-						# else:
-						# 	print (word, wordFreq)
-				outputString = ''
-				for column in vector:
-					outputString += str(column)
-					outputString += '\t'
-				outputString = outputString[:-1]
-				outputString+= '\n'
-				self.fileFinalFeatureVector.write(outputString)
-				# self.fileFinalFeatureVector.write('\n')
+				self.dump_single_feature_vector(self.construct_single_feature_vector(line, corpus_length, isFeatureTfIdf))
 		self.fileFinalFeatureVector.close()
 
 
+	def construct_single_feature_vector(self, line, featureVectorLength, isFeatureTfIdf=False):
+		vector = [0] * featureVectorLength
+		(articleId, wordsTabSeparated) = line.split('@')
+		print articleId
+		if(wordsTabSeparated != None and wordsTabSeparated != ""):
+			words = wordsTabSeparated.split('\t')
+			if (len(words) > 1):
+				for wordFreqPair in words:
+					(word, wordFreq) = wordFreqPair.split('-')
+					if word in Preprocessor.wordCorpusToColIndexMap and Preprocessor.wordCorpusToColIndexMap[word] < featureVectorLength:
+						if isFeatureTfIdf:
+							tf = int(wordFreq)
+							idf = 0
+							if Preprocessor.TotalDocs > 0 and Preprocessor.wordToNumDocsMap[word] > 0:
+								idf = math.log(Preprocessor.TotalDocs / Preprocessor.wordToNumDocsMap[word])
+							vector[Preprocessor.wordCorpusToColIndexMap[word]] = tf * idf
+						else:
+							vector[Preprocessor.wordCorpusToColIndexMap[word]] = int(wordFreq)
+		return vector
 
 
-newPrep = Preprocessor()
+	# you need to open 'self.fileFinalFeatureVector' before calling this method
+	def dump_single_feature_vector(self, vector):
+		outputString = ''
+		for column in vector:
+			outputString += str(column)
+			outputString += '\t'
+		outputString = outputString[:-1]
+		outputString += '\n'
+		self.fileFinalFeatureVector.write(outputString)
+
+
+
+	def construct_feature_vetor_matrix_for_naive_bayes(self, isFeatureTfIdf=False):
+		self.loadStoredMaps()
+		if isFeatureTfIdf:
+			fileName = "./FinalFeatureVectorNaiveBayesTFIDF"
+		else:
+			fileName = "./FinalFeatureVectorNaiveBayes"
+		self.fileFinalFeatureVector = open(fileName, "w+")
+		corpus_length = len(Preprocessor.wordCorpusToColIndexMap)
+		fileBagOfWords = open("./BagOfWords", "r")
+
+		#getting articleIdSeekPosition into a map
+		articleIdSeekPosition = {}
+		self.loadLineByLineFileIntoMap("./ArticleIdSeekPosition", articleIdSeekPosition, '-')
+
+		#loading topics file into map
+		self.loadSingleLineFileIntoMap("./articleTopicsClassLabels", Preprocessor.articleIdTopicsClassLabelMap, '@')
+
+		#prepare the feature vector and class label vector
+		with open('./articleTopicsClassLabels') as fileobject:
+			entireData = fileobject.readline()
+			for pair in entireData.split('\t'):
+				(key, value) = pair.split('@')
+				if (value != None and value != ""):
+					topics = value.split(',')
+					self.Y_Labels.append(topics)
+
+					#construct the featurevector here and add it to the new file
+					fileBagOfWords.seek(articleIdSeekPosition[key])
+					self.X.append(self.construct_single_feature_vector(fileBagOfWords.readline(), corpus_length, isFeatureTfIdf))
+
+		fileBagOfWords.close()
+
+
+
+
+
+
+# newPrep = Preprocessor(sys.argv[1])
+newPrep = Preprocessor('Y')
 start_time = time.time()
-if(sys.argv[1] == 'Y' or sys.argv[1] == 'y'):
-	newPrep.init_file_parsing()
-generateTfIdf = (sys.argv[2] == 'Y') or (sys.argv[2] == 'y')
-newPrep.construct_feature_vetor_matrix(sys.argv[1],generateTfIdf)
+# if(sys.argv[1] == 'Y' or sys.argv[1] == 'y'):
+newPrep.init_file_parsing()
+# generateTfIdf = (sys.argv[2] == 'Y') or (sys.argv[2] == 'y')
+# newPrep.construct_feature_vetor_matrix(sys.argv[1],generateTfIdf)
+newPrep.construct_feature_vetor_matrix('Y', False)
 print("--- %s seconds ---" % (time.time() - start_time))
-
-# start_time = time.time()
-# newPrep.init_file_parsing()
-# generateTfIdf = 0
-# newPrep.construct_feature_vetor_matrix('Y',generateTfIdf)
-# print("--- %s seconds ---" % (time.time() - start_time))
