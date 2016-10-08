@@ -10,15 +10,16 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn import neighbors
 
 from Preprocessor import Preprocessor
-
+from ModelAccuracyEvaluator import ModelAccuracyEvaluator
 
 class NaiveBayesClassifier:
 
     def __init__(self):
         # self.classifier = OneVsRestClassifier(MultinomialNB())
-        # self.classifier = neighbors.KNeighborsClassifier(n_neighbors = 3)
-        self.classifier = OneVsRestClassifier(neighbors.KNeighborsClassifier(n_neighbors = 3))
+        self.classifier = neighbors.KNeighborsClassifier(n_neighbors = 3)
+        # self.classifier = OneVsRestClassifier(neighbors.KNeighborsClassifier(n_neighbors = 3))
         self.preprocessor = Preprocessor('N')
+        self.modelAccuracyEvaluator = ModelAccuracyEvaluator()
         # generateTfIdf = (sys.argv[2] == 'Y') or (sys.argv[2] == 'y')
         generateTfIdf = False
         self.preprocessor.construct_feature_vetor_matrix_for_naive_bayes(generateTfIdf)
@@ -28,6 +29,7 @@ class NaiveBayesClassifier:
     def prepareDataForClassifier(self):
         self.Y = MultiLabelBinarizer().fit_transform(self.preprocessor.Y_Labels)
         self.listOfTopics = sorted(set(chain.from_iterable(self.preprocessor.Y_Labels)))
+        self.modelAccuracyEvaluator.SetListOfTopics(self.listOfTopics)
         self.X = self.preprocessor.X
         random_state = np.random.RandomState(0)
         self.train_X, self.test_X, self.train_Y, self.test_Y = train_test_split(self.X, self.Y, test_size=0.33, random_state=random_state)
@@ -40,10 +42,13 @@ class NaiveBayesClassifier:
         predictions = self.classifier.predict(np.array(self.test_X))
         # self.printCorrespodingTopics(resY[0])
         for i in range(0, len(predictions)):
-            self.printCorrespodingTopics(predictions[i])
-            self.printCorrespodingTopics(self.test_Y[i])
-            print "\n"
-
+            self.modelAccuracyEvaluator.EvaluateDocument(predictions[i],self.test_Y[i])
+            # self.printCorrespodingTopics(predictions[i])
+            # self.printCorrespodingTopics(self.test_Y[i])
+            # print "\n"
+        print self.modelAccuracyEvaluator.GetAccuracy()
+        print "\n"
+        print self.classifier.score(self.test_X,self.test_Y)
 
     # def evaluatingPredictions(self):
 
