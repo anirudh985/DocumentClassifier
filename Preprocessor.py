@@ -189,19 +189,21 @@ class Preprocessor:
 
 	def loadLineByLineFileIntoMap(self, filePath, someMap, splitSeparator):
 		with open(filePath) as fileobject:
-			headerValue = int(fileobject.readline())
+			# headerValue = int(fileobject.readline())
 			for line in fileobject:
 				(key, value) = line.split(splitSeparator)
 				someMap[key] = int(value)
-		return headerValue
+		# return headerValue
 
-	def loadSingleLineFileIntoMap(self, filePath, someMap, outerSplitSeparator, innerSplitSeparator):
+	def loadSingleLineFileIntoMap(self, filePath, someMap, outerSplitSeparator, innerSplitSeparator, methodToConvertValue = int, headerIncluded=True):
 		with open(filePath) as fileobject:
-			headerValue = int(fileobject.readline())
+			headerValue = -1
+			if(headerIncluded):
+				headerValue = int(fileobject.readline())
 			entireData = fileobject.readline()
 		for pair in entireData.split(outerSplitSeparator):
 			(key, value) = pair.split(innerSplitSeparator)
-			someMap[key] = int(value)
+			someMap[key] = methodToConvertValue(value)
 		return headerValue
 
 	def loadStoredMaps(self):
@@ -227,7 +229,6 @@ class Preprocessor:
 	def construct_single_feature_vector(self, line, featureVectorLength, isFeatureTfIdf=False):
 		vector = [0] * featureVectorLength
 		(articleId, wordsTabSeparated) = line.split('@')
-		print articleId
 		if(wordsTabSeparated != None and wordsTabSeparated != ""):
 			words = wordsTabSeparated.split('\t')
 			if (len(words) > 1):
@@ -258,6 +259,8 @@ class Preprocessor:
 
 
 	def construct_feature_vetor_matrix_for_naive_bayes(self, isFeatureTfIdf=False):
+		self.Y_Labels = []
+		self.X = []
 		self.loadStoredMaps()
 		if isFeatureTfIdf:
 			fileName = "./FinalFeatureVectorNaiveBayesTFIDF"
@@ -272,7 +275,7 @@ class Preprocessor:
 		self.loadLineByLineFileIntoMap("./ArticleIdSeekPosition", articleIdSeekPosition, '-')
 
 		#loading topics file into map
-		self.loadSingleLineFileIntoMap("./articleTopicsClassLabels", Preprocessor.articleIdTopicsClassLabelMap, '@')
+		self.loadSingleLineFileIntoMap("./articleTopicsClassLabels", Preprocessor.articleIdTopicsClassLabelMap, '\t', '@', methodToConvertValue=str, headerIncluded=False)
 
 		#prepare the feature vector and class label vector
 		with open('./articleTopicsClassLabels') as fileobject:
@@ -286,6 +289,10 @@ class Preprocessor:
 					#construct the featurevector here and add it to the new file
 					fileBagOfWords.seek(articleIdSeekPosition[key])
 					self.X.append(self.construct_single_feature_vector(fileBagOfWords.readline(), corpus_length, isFeatureTfIdf))
+					if(len(self.X) == 1000):
+						break
+					# else:
+					# 	print key
 
 		fileBagOfWords.close()
 
@@ -295,11 +302,11 @@ class Preprocessor:
 
 
 # newPrep = Preprocessor(sys.argv[1])
-newPrep = Preprocessor('Y')
-start_time = time.time()
-# if(sys.argv[1] == 'Y' or sys.argv[1] == 'y'):
-newPrep.init_file_parsing()
-# generateTfIdf = (sys.argv[2] == 'Y') or (sys.argv[2] == 'y')
-# newPrep.construct_feature_vetor_matrix(sys.argv[1],generateTfIdf)
-newPrep.construct_feature_vetor_matrix('Y', False)
-print("--- %s seconds ---" % (time.time() - start_time))
+# newPrep = Preprocessor('Y')
+# start_time = time.time()
+# # if(sys.argv[1] == 'Y' or sys.argv[1] == 'y'):
+# newPrep.init_file_parsing()
+# # generateTfIdf = (sys.argv[2] == 'Y') or (sys.argv[2] == 'y')
+# # newPrep.construct_feature_vetor_matrix(sys.argv[1],generateTfIdf)
+# newPrep.construct_feature_vetor_matrix('Y', False)
+# print("--- %s seconds ---" % (time.time() - start_time))
