@@ -34,6 +34,9 @@ class ModelAccuracyEvaluator:
 		if isPredictionCorrect == True:
 			self.numberOfDocumentsCorrectlyPredicted += 1
 		self.currentAccuracy = float((self.numberOfDocumentsCorrectlyPredicted * 100 ) / float(self.numberOfDocumentsEvaluated))
+		# self.printCorrespodingTopics(predictedResult)
+		# self.printCorrespodingTopics(actualLabels)
+		# print "\n"
 
 	def printCorrespodingTopics(self, outputPrediction):
 		print map(lambda (x, y): y if x == 1 else '', zip(outputPrediction, self.listOfTopics))

@@ -289,8 +289,8 @@ class Preprocessor:
 					#construct the featurevector here and add it to the new file
 					fileBagOfWords.seek(articleIdSeekPosition[key])
 					self.X.append(self.construct_single_feature_vector(fileBagOfWords.readline(), corpus_length, isFeatureTfIdf))
-					if(len(self.X) == 1000):
-						break
+					# if(len(self.X) == 1000):
+					# 	break
 					# else:
 					# 	print key
 
