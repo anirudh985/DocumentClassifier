@@ -15,8 +15,11 @@ from ModelAccuracyEvaluator import ModelAccuracyEvaluator
 class NaiveBayesClassifier:
 
     def __init__(self):
-        # self.classifier = OneVsRestClassifier(MultinomialNB())
-        self.classifier = neighbors.KNeighborsClassifier(n_neighbors = 3)
+        classifierType = sys.argv[3]
+        if classifierType == 'N':
+            self.classifier = OneVsRestClassifier(MultinomialNB())
+        else:
+            self.classifier = neighbors.KNeighborsClassifier(n_neighbors = 3)
         # self.classifier = OneVsRestClassifier(neighbors.KNeighborsClassifier(n_neighbors = 3))
         self.preprocessor = Preprocessor('N')
         self.modelAccuracyEvaluator = ModelAccuracyEvaluator()

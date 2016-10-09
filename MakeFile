@@ -1,0 +1,18 @@
+run:
+	python Preprocessor.py ${PARSE} ${TFIDF} ${CLASSIFIER}
+
+clean:
+	rm -f ./FinalFeatureVector ./FinalFeatureVectorTFIDF
+
+clean-all:
+	find . -type f ! -name "Preprocessor.py" ! -name "README" -exec rm -rf {} \;
+
+help:
+	@echo "Run"
+	@echo "1. use make run PARSE='Y' TFIDF='N' to parse the documents and build Feature Vector using Bag of Words"
+	@echo "2. use make run PARSE='Y' TFIDF='Y' to parse the documents and build Feature Vector using TF-IDF"
+	@echo "3. use make run PARSE='N' TFIDF='N' to use previously parsed information to build Feature Vector using Bag of Words"
+	@echo "4. use make run PARSE='N' TFIDF='Y' to use previously parsed information to build Feature Vector using TF-IDF"
+	@echo "Clean"
+	@echo "use make clean to delete the Feature Vector Files"
+	@echo "use make clean-all to delete all the Files"
