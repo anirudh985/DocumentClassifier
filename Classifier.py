@@ -27,7 +27,7 @@ class Classifier:
         if self.classifierType == 'N':
             self.classifier = OneVsRestClassifier(MultinomialNB(alpha=1))
         elif self.classifierType == 'K':
-            self.classifier = neighbors.KNeighborsClassifier(n_neighbors = self.numberOfNeighbours)
+            self.classifier = neighbors.KNeighborsClassifier(n_neighbors = self.numberOfNeighbours, weights='distance')
         elif self.classifierType == 'D':
             self.classifier = tree.DecisionTreeClassifier(criterion='gini')
         else:
