@@ -24,12 +24,12 @@ class Classifier:
         # self.classifierType = 'K'
         # self.numberOfNeighbours = 3
         # self.isPredict = 'N'
-        if self.classifierType == 'K':
+        if self.classifierType == 'N':
             self.classifier = OneVsRestClassifier(MultinomialNB(alpha=1))
-        elif self.classifierType == 'N':
+        elif self.classifierType == 'K':
             self.classifier = neighbors.KNeighborsClassifier(n_neighbors = self.numberOfNeighbours)
         elif self.classifierType == 'D':
-            self.classifier = tree.DecisionTreeClassifier
+            self.classifier = tree.DecisionTreeClassifier()
         else:
             print "Invalid Classifier Input"
             sys.exit(1)
@@ -93,9 +93,6 @@ class Classifier:
         string_to_write = string_to_write[:-1]
         string_to_write += '\n'
         return  string_to_write
-
-    def printCorrespodingTopics(self, outputPrediction):
-        print map(lambda (x, y): y if x == 1 else '', zip(outputPrediction, self.listOfTopics))
 
     def GetClassifierType(self):
         if self.classifierType == 'N':
