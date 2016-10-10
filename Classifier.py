@@ -29,7 +29,7 @@ class Classifier:
         elif self.classifierType == 'K':
             self.classifier = neighbors.KNeighborsClassifier(n_neighbors = self.numberOfNeighbours)
         elif self.classifierType == 'D':
-            self.classifier = tree.DecisionTreeClassifier()
+            self.classifier = tree.DecisionTreeClassifier(criterion='gini')
         else:
             print "Invalid Classifier Input"
             sys.exit(1)
