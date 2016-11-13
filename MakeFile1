@@ -1,0 +1,12 @@
+TEST_DATA_SPLIT  = 0.2
+NUMBER_OF_NEIGHBOURS = 3
+CLASSIFIER = "K"
+run:
+	python Classifier.py ${CLASSIFIER} $(TEST_DATA_SPLIT) $(NUMBER_OF_NEIGHBOURS)
+
+help:
+	@echo "Run"
+	@echo "1. use make run CLASSIFIER='N' TEST_DATA_SPLIT=<split ratio> to use Naive Bayes Classifier with the given split ratio"
+	@echo "2. use make run CLASSIFIER='K' TEST_DATA_SPLIT=<split ratio> NUMBER_OF_NEIGHBOURS=<k> to use K-nearest neighobour Classifier with the given split ratio and given number of neighbours"
+	@echo "The default CLASSIFIER that will be used when no input is given -> K-nearest neighbours"
+	@echo "The default values for TEST_DATA_SPLIT is 0.2 and for NUMBER_OF_NEIGHBOURS is 3."

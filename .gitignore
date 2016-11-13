@@ -2,3 +2,39 @@
 .idea/workspace.xml
 
 .DS_Store
+
+DM Project Resources/BagOfWords
+
+DM Project Resources/articleTopicsClassLabels
+
+.idea/inspectionProfiles/profiles_settings.xml
+
+.idea/inspectionProfiles/Project_Default.xml
+
+ArticleIdSeekPosition
+
+articlePlacesClassLabels
+
+articleTopicsClassLabels
+
+BagOfWords
+
+DM Project Resources/wordNumDocs
+
+DM Project Resources/wordPosition
+
+FeatureVector
+
+FinalFeatureVectorNaiveBayes
+
+KNN-3neighbouts-0.2
+
+KNN-3neighbouts-0.2Init.txt
+
+*.pyc
+
+wordNumDocs
+
+wordPosition
+
+predictions
