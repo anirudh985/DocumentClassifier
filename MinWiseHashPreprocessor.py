@@ -20,10 +20,11 @@ class MinWiseHashPreprocessor:
     def __init__(self, kGramValue):
         self.kGramValue = kGramValue
         self.numOfHashFunctions = 10
+        self.TotalDocs = 0
 
 
     def init_file_parsing(self):
-        for a in range(0, 22):
+        for a in range(0, 1):
             file_name = self.baseFileName + str(a).zfill(3) + self.baseFileExtension
             print file_name
             file_handle = urllib2.urlopen(file_name)
@@ -42,6 +43,8 @@ class MinWiseHashPreprocessor:
                 # 	title = ''
                 if article.BODY:
                     body = self.removeTags(article.BODY.string)
+                # else:
+                #     body = ''
 
                 if title == '' and body == '' and article.TEXT:
                     body = self.removeTags(article.TEXT.string)
@@ -76,6 +79,17 @@ class MinWiseHashPreprocessor:
         vectorizer = CountVectorizer(ngram_range=(k, k), stop_words='english', analyzer=u'word', binary=True, dtype=np.bool)
         self.kgramFeatureVector = vectorizer.fit_transform(MinWiseHashPreprocessor.listOfDocuments)
         self.maxFeatures = self.kgramFeatureVector.get_shape()[1]
+        self.calculateJacardSimilarity()
+
+    def calculateJacardSimilarity(self):
+        for i in range(0, MinWiseHashPreprocessor.TotalDocs):
+            for j in range(i+1, MinWiseHashPreprocessor.TotalDocs):
+                num = np.array(self.kgramFeatureVector[i] * self.kgramFeatureVector[j].transpose().sum(1)).flatten()[0]
+                # num = (self.kgramFeatureVector[i] * self.kgramFeatureVector[j].transpose()).sum()
+                denom = self.kgramFeatureVector[i].count_nonzero() + self.kgramFeatureVector[j].count_nonzero() - num
+                jack = num/float(denom)
+                if(jack == 1.0):
+                    print i,j,jack
 
     def generateRandomCoeffs(self):
         randomCoeffList = random.sample(xrange(0, self.maxFeatures), self.numOfHashFunctions)
@@ -92,17 +106,32 @@ class MinWiseHashPreprocessor:
     def generateSingleSignatureMatrixRow(self, docNumber, coeffA, coeffB, primeNumber):
         return map(self.generateMinwiseHash, zip(coeffA, coeffB, [primeNumber]*self.numOfHashFunctions, [docNumber]*self.numOfHashFunctions))
 
+    def generateMinwiseSimilarities(self):
+        for i in xrange(0,self.TotalDocs):
+            for j in xrange(i,self.TotalDocs):
+                self.generateMinSimilaritiesBetweenDocs(i,j)
+
+    def generateMinSimilaritiesBetweenDocs(self,firstDocId, secondDocId):
+        similarityCount = 0
+        for i in xrange(0,self.numOfHashFunctions):
+            if self.signatureMatrix[firstDocId][i] == self.signatureMatrix[secondDocId][i]:
+                similarityCount += 1
+        return similarityCount/float(self.numOfHashFunctions)
+
+
     def generateMinwiseHash(self, arg):
         minValue = sys.maxint
         for i in self.kgramFeatureVector[arg[3]].nonzero()[1]:
             hashValue = ((arg[0]*i+ arg[1]) % arg[2]) % self.maxFeatures
-            if(hashValue < minValue):
+            if hashValue < minValue:
                 minValue = hashValue
         return minValue
 
-minWiseHashPreproc = MinWiseHashPreprocessor(int(sys.argv[1]))
+
+#minWiseHashPreproc = MinWiseHashPreprocessor(int(sys.argv[1]))
+minWiseHashPreproc = MinWiseHashPreprocessor(3)
 start_time = time.time()
-# minWiseHashPreproc.init_file_parsing()
+minWiseHashPreproc.init_file_parsing()
 fileParsing_time = time.time()
 print("Time taken for file parsing -- %s" % (fileParsing_time - start_time))
 minWiseHashPreproc.creatingKgramFeatureVector(minWiseHashPreproc.kGramValue)
