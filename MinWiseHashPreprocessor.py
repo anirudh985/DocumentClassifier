@@ -8,6 +8,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 import sys
 import time
+import random
 
 
 class MinWiseHashPreprocessor:
@@ -18,6 +19,7 @@ class MinWiseHashPreprocessor:
 
     def __init__(self, kGramValue):
         self.kGramValue = kGramValue
+        self.numOfHashFunctions = 10
 
 
     def init_file_parsing(self):
@@ -73,7 +75,30 @@ class MinWiseHashPreprocessor:
         # max_features=feature_count
         vectorizer = CountVectorizer(ngram_range=(k, k), stop_words='english', analyzer=u'word', binary=True, dtype=np.bool)
         self.kgramFeatureVector = vectorizer.fit_transform(MinWiseHashPreprocessor.listOfDocuments)
+        self.maxFeatures = self.kgramFeatureVector.get_shape()[1]
 
+    def generateRandomCoeffs(self):
+        randomCoeffList = random.sample(xrange(0, self.maxFeatures), self.numOfHashFunctions)
+        return randomCoeffList
+
+    def createMinWiseSignatureMatrix(self):
+        coeffA = self.generateRandomCoeffs()
+        coeffB = self.generateRandomCoeffs()
+        primeNumber = 2145
+        self.signatureMatrix = []
+        for i in xrange(MinWiseHashPreprocessor.TotalDocs):
+            self.signatureMatrix.append(self.generateSingleSignatureMatrixRow(i, coeffA, coeffB, primeNumber))
+
+    def generateSingleSignatureMatrixRow(self, docNumber, coeffA, coeffB, primeNumber):
+        return map(self.generateMinwiseHash, zip(coeffA, coeffB, [primeNumber]*self.numOfHashFunctions, [docNumber]*self.numOfHashFunctions))
+
+    def generateMinwiseHash(self, arg):
+        minValue = sys.maxint
+        for i in self.kgramFeatureVector[arg[3]].nonzero()[1]:
+            hashValue = ((arg[0]*i+ arg[1]) % arg[2]) % self.maxFeatures
+            if(hashValue < minValue):
+                minValue = hashValue
+        return minValue
 
 minWiseHashPreproc = MinWiseHashPreprocessor(int(sys.argv[1]))
 start_time = time.time()
