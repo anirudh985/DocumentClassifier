@@ -171,7 +171,8 @@ class MinWiseHashPreprocessor:
         return jack
 
     def generateSimilaritiesAndReturnRMSE(self):
-        self.generateSimilaritiesandReturnSE()
+        self.mapperGenerateSimilaritiesandReturnSE()
+        # self.generateSimilaritiesandReturnSE()
         # self.threadedGenerateSimilaritiesandReturnSE()
         totalUniquePairs = self.TotalDocs * (self.TotalDocs - 1) / 2
         RMSEList = map(lambda x : math.sqrt(x/totalUniquePairs) ,self.SEValues)
