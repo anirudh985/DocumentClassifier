@@ -28,8 +28,6 @@ class MinWiseHashPreprocessor:
         self.listOfNumberOfHashFunctions = [16,32,64,128,256]
         self.SEValues = [0,0,0,0,0]
         self.TotalDocs = 0
-        # self.p = Pool(4)
-
 
     def init_file_parsing(self):
         for a in range(0, 1):
@@ -61,20 +59,6 @@ class MinWiseHashPreprocessor:
                 if (title == '' and body == ''):
                     continue
 
-                # if article.TOPICS:
-                #     topicsClassLabels = ""
-                #     for topic in article.TOPICS.find_all('D'):
-                #         topicsClassLabels += topic.string + ","
-                #     topicsClassLabels = topicsClassLabels[:-1]
-                #     Preprocessor.articleIdTopicsClassLabelMap[articleId] = topicsClassLabels
-                #
-                # if article.PLACES:
-                #     placeClassLabels = ""
-                #     for place in article.PLACES.find_all('D'):
-                #         placeClassLabels += place.string + ","
-                #     placeClassLabels = placeClassLabels[:-1]
-                #     Preprocessor.articleIdPlacesClassLabelMap[articleId] = placeClassLabels
-
                 self.TotalDocs += 1
                 MinWiseHashPreprocessor.listOfDocuments.append(title + " " + body)
 
@@ -83,12 +67,11 @@ class MinWiseHashPreprocessor:
 
 
     def creatingKgramFeatureVector(self, k):
-        # max_features=feature_count
         vectorizer = CountVectorizer(ngram_range=(k, k), stop_words='english', analyzer=u'word', binary=True, dtype=np.bool)
         self.kgramFeatureVector = vectorizer.fit_transform(MinWiseHashPreprocessor.listOfDocuments)
         self.maxFeatures = self.kgramFeatureVector.get_shape()[1]
-        # self.calculateJaccardSimilarity()
 
+    # Not being used
     def calculateJaccardSimilarity(self):
         for i in range(0, self.TotalDocs):
             jaccardSimilarityOfDoc = ""
@@ -104,12 +87,12 @@ class MinWiseHashPreprocessor:
     def createMinWiseSignatureMatrix(self):
         coeffA = self.generateRandomCoeffs()
         coeffB = self.generateRandomCoeffs()
-        primeNumber = 72613
+        primeNumber = 72613 #137183 (for 2000 docs)
         self.signatureMatrix = []
         for i in xrange(self.kgramFeatureVector.get_shape()[0]):
             self.signatureMatrix.append(self.generateSingleSignatureMatrixRow(i, coeffA, coeffB, primeNumber))
     #    creating numpy array from the above generated list of list
-        self.signatureMatrixNP = np.asarray(self.signatureMatrix)
+    #     self.signatureMatrixusingNumpy = np.asarray(self.signatureMatrix)
 
     def generateSingleSignatureMatrixRow(self, docNumber, coeffA, coeffB, primeNumber):
         return map(self.generateMinwiseHash, izip(coeffA, coeffB, [primeNumber]*self.numOfHashFunctions, [docNumber]*self.numOfHashFunctions))
@@ -123,32 +106,26 @@ class MinWiseHashPreprocessor:
         return minValue
 
     def generateSimilaritiesandReturnSE(self):
-        # squaredError = 0
         for i in xrange(0,self.TotalDocs):
-            minHashForADoc = ""
             for j in xrange(i,self.TotalDocs):
-                # minHashForADoc += str(self.generateMinSimilaritiesForAPairOfDocs(i,j)) + "\t"
-                squaredErrorMap  = self.generateSimilaritiesAndSEForAPairOfDocs(i,j)
+                squaredErrorMap  = self.generateSimilaritiesAndSEForAPairOfDocs((i,j))
                 self.SEValues = map(lambda (x, y): (x + y),izip(squaredErrorMap, self.SEValues))
-            # self.fileMinHashingSimilarity.write(minHashForADoc)
-        # return squaredError
 
-    def mapperGenerateSimilaritiesandReturnSE(self):
+    def generateSimilaritiesandReturnSEusingMap(self):
         squaredErrorMap = itertools.imap(self.generateSimilaritiesAndSEForAPairOfDocs, itertools.combinations(xrange(self.TotalDocs), 2))
         self.SEValues = reduce(lambda x, y: map(lambda (a, b): a + b, izip(x, y)), squaredErrorMap, self.SEValues)
 
-    def threadedGenerateSimilaritiesandReturnSE(self):
-        chunkSize = self.TotalDocs * (self.TotalDocs - 1) / 8
-        with closing(Pool()) as pool:
-            squaredErrorMap = pool.imap(self.generateSimilaritiesAndSEForAPairOfDocs, itertools.combinations(range(self.TotalDocs), 2), chunksize=chunkSize)
+    def generateSimilaritiesandReturnSEparallel(self):
+        chunkSize = int(self.TotalDocs * (self.TotalDocs - 1) / 8)
+        with closing(Pool(processes=4)) as pool:
+            squaredErrorMap = pool.imap_unordered(self.generateSimilaritiesAndSEForAPairOfDocs, itertools.combinations(range(self.TotalDocs), 2), chunksize=chunkSize)
             self.SEValues = reduce(lambda x, y: map(lambda (a,b) : a + b, izip(x,y)), squaredErrorMap, self.SEValues)
             pool.terminate()
 
     def generateSimilaritiesAndSEForAPairOfDocs(self,(firstDocId, secondDocId)):
-        # TODO: Need to change the minwise similarity function
         jaccardSimilarity = self.calculateJaccardSimilarityForAPairOfDocs(firstDocId,secondDocId)
-        # minHashSimilarity = self.generateMinSimilaritiesForAPairOfDocs(firstDocId,secondDocId)
-        minHashSimilarity = self.generateMinSimilaritiesForAPairOfDocsNP(firstDocId, secondDocId)
+        minHashSimilarity = self.generateMinSimilaritiesForAPairOfDocs(firstDocId,secondDocId)
+        # minHashSimilarity = self.generateMinSimilaritiesForAPairOfDocsusingNumpy(firstDocId, secondDocId)
         return map(lambda (x, y): (x-y) * (x-y), izip([jaccardSimilarity]* len(self.listOfNumberOfHashFunctions), minHashSimilarity))
 
     def generateMinSimilaritiesForAPairOfDocs(self,firstDocId, secondDocId):
@@ -160,38 +137,42 @@ class MinWiseHashPreprocessor:
                         similarityCount[k] += 1
         return map(lambda(x,y): x/float(y), izip(similarityCount,self.listOfNumberOfHashFunctions))
 
-    def generateMinSimilaritiesForAPairOfDocsNP(self, firstDocId, secondDocId):
-        return map(lambda k: (np.count_nonzero(self.signatureMatrixNP[firstDocId][:k] == self.signatureMatrixNP[secondDocId][:k])/float(k), self.listOfNumberOfHashFunctions))
+    def generateMinSimilaritiesForAPairOfDocsusingNumpy(self, firstDocId, secondDocId):
+        return map(lambda k: (np.count_nonzero(self.signatureMatrixusingNumpy[firstDocId][:k] == self.signatureMatrixusingNumpy[secondDocId][:k]))/float(k), self.listOfNumberOfHashFunctions)
 
     def calculateJaccardSimilarityForAPairOfDocs(self,firstDocId,secondDocId):
-        num = np.array(self.kgramFeatureVector[firstDocId] * self.kgramFeatureVector[secondDocId].transpose().sum(1)).flatten()[0]
+        # num = np.array(self.kgramFeatureVector[firstDocId] * self.kgramFeatureVector[secondDocId].transpose().sum(1)).flatten()[0]
         # num = (self.kgramFeatureVector[i] * self.kgramFeatureVector[j].transpose()).sum()
-        denom = self.kgramFeatureVector[firstDocId].count_nonzero() + self.kgramFeatureVector[secondDocId].count_nonzero() - num
-        jack = num / float(denom)
+        # denom = self.kgramFeatureVector[firstDocId].count_nonzero() + self.kgramFeatureVector[secondDocId].count_nonzero() - num
+        array1 = np.array(self.kgramFeatureVector[firstDocId].nonzero()[1])
+        array2 = np.array(self.kgramFeatureVector[secondDocId].nonzero()[1])
+        arrayIntersection = np.intersect1d(array1, array2, True)
+        num = arrayIntersection.size
+        denom = array1.size + array2.size - num
+        if denom == 0:
+            jack = 0
+        else:
+            jack = num / float(denom)
         return jack
 
     def generateSimilaritiesAndReturnRMSE(self):
-        self.mapperGenerateSimilaritiesandReturnSE()
+        self.generateSimilaritiesandReturnSEusingMap()
         # self.generateSimilaritiesandReturnSE()
-        # self.threadedGenerateSimilaritiesandReturnSE()
+        # self.generateSimilaritiesandReturnSEparallel()
         totalUniquePairs = self.TotalDocs * (self.TotalDocs - 1) / 2
         RMSEList = map(lambda x : math.sqrt(x/totalUniquePairs) ,self.SEValues)
         return RMSEList
 
-            # math.sqrt(squaredError) / totalUniquePairs
-        # return RMSE
     def PlotKvsRMSE(self):
         RMSEList = self.generateSimilaritiesAndReturnRMSE()
-        plot = izip(self.listOfNumberOfHashFunctions,RMSEList)
-        plt.xlabel('number of hash functions')
-        plt.ylabel('Square errors')
+        plot = zip(self.listOfNumberOfHashFunctions,RMSEList)
+        plt.xlabel('number of hash functions (k)')
+        plt.ylabel('RMSE')
         plt.plot(self.listOfNumberOfHashFunctions,RMSEList,linewidth=2.0, marker='o')
         plt.show()
-        # plt.setp(lines, color='r', linewidth=2.0)
         print plot
 
 
-#minWiseHashPreproc = MinWiseHashPreprocessor(int(sys.argv[1]))
 minWiseHashPreproc = MinWiseHashPreprocessor(3)
 start_time = time.time()
 minWiseHashPreproc.init_file_parsing()
@@ -204,4 +185,4 @@ minWiseHashPreproc.createMinWiseSignatureMatrix()
 sigMatrixTime = time.time()
 print("Min wise signature matrix created -- %s" % (sigMatrixTime - kgramFeatureVectorTime))
 minWiseHashPreproc.PlotKvsRMSE()
-print("Time taken for creating k gram feature vector -- %s " % (time.time() - sigMatrixTime))
+print("Time taken for calculating RMSE value -- %s " % (time.time() - sigMatrixTime))
