@@ -30,7 +30,8 @@ class MinWiseHashPreprocessor:
         self.TotalDocs = 0
 
     def init_file_parsing(self):
-        for a in range(0, 1):
+        randomArticleIds = random.sample(xrange(0, 22000), 2000)
+        for a in range(0, 22):
             file_name = self.baseFileName + str(a).zfill(3) + self.baseFileExtension
             print file_name
             file_handle = urllib2.urlopen(file_name)
@@ -40,27 +41,28 @@ class MinWiseHashPreprocessor:
             xml_content += '</a>'
             soup = BeautifulSoup(xml_content, "xml")
             for article in soup.find_all('REUTERS'):
-                articleId = article['NEWID']
-                title = ''
-                body = ''
-                if article.TITLE:
-                    title = self.removeTags(article.TITLE.string)
-                # else:
-                # 	title = ''
-                if article.BODY:
-                    body = self.removeTags(article.BODY.string)
-                # else:
-                #     body = ''
+                articleId = int(article['NEWID'])
+                if(articleId in randomArticleIds):
+                    title = ''
+                    body = ''
+                    if article.TITLE:
+                        title = self.removeTags(article.TITLE.string)
+                    # else:
+                    # 	title = ''
+                    if article.BODY:
+                        body = self.removeTags(article.BODY.string)
+                    # else:
+                    #     body = ''
 
-                if title == '' and body == '' and article.TEXT:
-                    body = self.removeTags(article.TEXT.string)
-                # else:
-                # 	body = ''
-                if (title == '' and body == ''):
-                    continue
+                    if title == '' and body == '' and article.TEXT:
+                        body = self.removeTags(article.TEXT.string)
+                    # else:
+                    # 	body = ''
+                    if (title == '' and body == ''):
+                        continue
 
-                self.TotalDocs += 1
-                MinWiseHashPreprocessor.listOfDocuments.append(title + " " + body)
+                    self.TotalDocs += 1
+                    MinWiseHashPreprocessor.listOfDocuments.append(title + " " + body)
 
     def removeTags(self, body):
         return re.sub('<[^<>]+>', '', body)
