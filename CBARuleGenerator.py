@@ -14,8 +14,9 @@ class CBAClassifier:
 
     def __init__(self):
         self.inputFileToCBAClassifier = open("./inputToCBAClassifier", "w+")
-        self.testDataFileToCBAClassifier = open("./testFileToCBAClassifier", "w+")
+        self.testDataFileToCBAClassifier = open("./testInputToCBAClassifier", "w+")
         self.appearancesTextFile = open("./appearances.txt", "w+")
+        self.testDataTopicsFile = open("./testDataRules", "w+")
         self.setOfTopics = set()
         self.inputToCBAClassifier = []
         self.testDataToCBAClassifier = []
@@ -75,9 +76,11 @@ class CBAClassifier:
         self.inputFileToCBAClassifier.write('\n'.join(imap(lambda x: ' '.join(x), self.inputToCBAClassifier)))
         self.testDataFileToCBAClassifier.write('\n'.join(imap(lambda x: ' '.join(x), self.testDataToCBAClassifier)))
         self.appearancesTextFile.write('antecedent\n' + '\n'.join(imap(lambda x: x + " consequent", iter(self.setOfTopics))))
+        self.testDataTopicsFile.write('\n'.join(imap(lambda x: ' '.join(x), self.testDataOriginalClasses)))
         self.inputFileToCBAClassifier.close()
         self.testDataFileToCBAClassifier.close()
         self.appearancesTextFile.close()
+        self.testDataTopicsFile.close()
 
 
     def removeTags(self, body):
@@ -86,6 +89,7 @@ class CBAClassifier:
     def createStopWords(self):
         stopWordsList = stopwords.words('english')
         stopWordsList.append('reuter')
+        stopWordsList.append('said')
         return dict((word, i) for (word, i) in izip(stopWordsList, range(1, len(stopWordsList) + 1)))
 
     def containsDigits(self, word):
@@ -102,11 +106,6 @@ class CBAClassifier:
         for topic in topicsList:
             yield "t_"+topic.string
 
-    # def predictClasses(self):
-    #
-    #     with open("./testFileToCBAClassifier") as fileobject:
-    #         for document in fileobject:
-
 
 
 
@@ -116,11 +115,9 @@ cbaClassifier.init_file_parsing()
 parsing_end_time = time.time()
 print("Time taken to generate input Files ----- %s" %(parsing_end_time - start_time))
 rulesFile = open("./rules.txt", "w+")
-returnValue = check_call(['./apriori', '-tr', '-s1', '-c10', '-Rappearances.txt', 'inputToCBAClassifier', './rulesFile'])
+returnValue = check_call(['./apriori', '-tr', '-s5', '-c10', '-Rappearances.txt', 'inputToCBAClassifier', './rulesFile'])
 print("\nTime taken to generate rules ----- %s" %(time.time() - parsing_end_time))
 if(returnValue == 0):
     print "Success"
 else:
     print "Failed"
-
-# cbaClassifier.predictClasses()
