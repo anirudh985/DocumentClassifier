@@ -7,12 +7,13 @@ from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 from itertools import izip, imap, ifilter, chain
 from subprocess import check_call
+import sys
 
 class CBAClassifier:
     baseFileName = 'http://web.cse.ohio-state.edu/~srini/674/public/reuters/reut2-'
     baseFileExtension = '.sgm'
 
-    def __init__(self):
+    def __init__(self, split):
         self.inputFileToCBAClassifier = open("./inputToCBAClassifier", "w+")
         self.testDataFileToCBAClassifier = open("./testInputToCBAClassifier", "w+")
         self.appearancesTextFile = open("./appearances.txt", "w+")
@@ -23,10 +24,11 @@ class CBAClassifier:
         self.testDataOriginalClasses = []
         self.stemmer = SnowballStemmer("english")
         self.stopWords = self.createStopWords()
+        self.split = split
         self.TotalDocs = 0
 
     def init_file_parsing(self):
-        randomArticleIds = random.sample(xrange(0, 22000), 17600)
+        randomArticleIds = random.sample(xrange(0, 22000), (float(self.split)/100)*22000)
         for a in range(0, 22):
         # randomArticleIds = random.sample(xrange(0, 1000), 800)
         # for a in range(0, 1):
@@ -107,13 +109,16 @@ class CBAClassifier:
             yield "t_"+topic.string
 
 
-cbaClassifier = CBAClassifier()
+split = int(sys.argv[3])
+support = "-s" + sys.argv[1]
+confidence = "-c" + sys.argv[2]
+cbaClassifier = CBAClassifier(split)
 start_time = time.time()
 cbaClassifier.init_file_parsing()
 parsing_end_time = time.time()
 print("Time taken to generate input Files ----- %s" %(parsing_end_time - start_time))
 rulesFile = open("./rules.txt", "w+")
-returnValue = check_call(['./apriori', '-tr', '-s5', '-c10', '-Rappearances.txt', 'inputToCBAClassifier', './rulesFile'])
+returnValue = check_call(['./apriori', '-tr', support, confidence, '-Rappearances.txt', 'inputToCBAClassifier', './rulesFile'])
 print("\nTime taken to generate rules ----- %s" %(time.time() - parsing_end_time))
 if(returnValue == 0):
     print "Success"
