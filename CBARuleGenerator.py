@@ -107,8 +107,6 @@ class CBAClassifier:
             yield "t_"+topic.string
 
 
-
-
 cbaClassifier = CBAClassifier()
 start_time = time.time()
 cbaClassifier.init_file_parsing()

@@ -1,0 +1,2252 @@
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_coffee
+t_money-supply
+t_earn
+t_grain t_wheat t_corn t_oat t_rye t_sorghum t_soybean t_oilseed
+t_money-supply
+t_money-supply
+t_cotton
+t_grain t_ship
+t_earn
+t_crude
+t_earn
+t_money-supply
+t_earn
+t_earn
+t_earn
+t_crude
+t_crude
+t_money-supply
+t_crude
+t_grain t_wheat
+t_money-fx
+t_ship
+t_reserves
+t_oilseed t_soybean
+t_tin
+t_reserves
+t_acq
+t_money-fx t_interest
+t_acq
+t_cotton
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_ipi
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_gold t_silver
+t_earn
+t_acq
+t_crude
+t_acq
+t_earn
+t_money-fx t_interest
+t_money-fx t_interest
+t_iron-steel
+t_earn
+t_earn
+t_nat-gas
+t_acq
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_crude
+t_earn
+t_trade
+t_acq
+t_earn
+t_coffee
+t_crude
+t_acq
+t_livestock t_hog
+t_copper
+t_earn
+t_propane t_heat t_gas
+t_money-supply
+t_earn
+t_gnp t_trade
+t_acq
+t_earn
+t_acq
+t_earn
+t_money-fx t_yen t_dlr
+t_earn
+t_reserves
+t_tin
+t_acq
+t_earn
+t_earn
+t_lei
+t_earn
+t_coffee
+t_earn
+t_trade
+t_money-fx t_interest
+t_earn
+t_earn
+t_ship
+t_earn
+t_grain t_wheat t_barley
+t_earn
+t_acq
+t_money-fx
+t_earn
+t_bop
+t_acq
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_cpi
+t_copper
+t_earn
+t_reserves
+t_earn
+t_earn
+t_veg-oil
+t_acq
+t_acq
+t_earn
+t_trade
+t_acq
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_crude
+t_earn
+t_coffee
+t_earn
+t_earn
+t_alum
+t_earn
+t_trade
+t_trade
+t_earn
+t_grain t_wheat
+t_earn
+t_wheat t_corn
+t_grain t_corn
+t_sugar
+t_earn
+t_trade
+t_earn
+t_acq
+t_earn
+t_acq
+t_sugar
+t_crude
+t_earn
+t_rubber
+t_earn
+t_earn
+t_interest t_money-fx
+t_livestock t_carcass t_grain
+t_money-fx t_interest
+t_earn
+t_earn
+t_earn
+t_earn
+t_grain t_corn t_sorghum t_oilseed t_sunseed t_soybean
+t_earn
+t_nat-gas
+t_grain
+t_earn
+t_earn
+t_trade
+t_acq
+t_trade
+t_earn
+t_crude t_nat-gas
+t_earn
+t_interest t_money-fx
+t_grain
+t_acq
+t_earn
+t_acq
+t_livestock t_carcass t_trade
+t_grain t_corn t_wheat
+t_sugar
+t_acq
+t_crude
+t_earn
+t_earn
+t_veg-oil
+t_gas t_crude
+t_earn
+t_reserves
+t_coffee
+t_ship t_crude
+t_crude
+t_silver t_gold
+t_sugar
+t_gnp
+t_money-fx t_interest
+t_money-fx t_interest
+t_jobs
+t_copper
+t_money-fx
+t_acq
+t_grain t_wheat t_barley t_corn
+t_crude
+t_earn
+t_earn
+t_acq
+t_earn
+t_acq
+t_earn
+t_crude
+t_earn
+t_earn
+t_interest
+t_earn
+t_grain t_barley t_wheat t_corn t_oilseed t_rapeseed
+t_earn
+t_copper t_lead t_zinc t_strategic-metal
+t_acq
+t_grain t_wheat t_barley t_corn
+t_livestock t_hog t_carcass
+t_acq
+t_earn
+t_earn
+t_grain t_corn
+t_earn
+t_earn
+t_ship
+t_earn
+t_ship
+t_money-fx t_dlr
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_crude
+t_earn
+t_earn
+t_earn
+t_acq
+t_gold
+t_grain t_wheat
+t_earn
+t_acq
+t_money-supply
+t_money-supply
+t_crude
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_cpi
+t_acq
+t_acq
+t_earn
+t_acq
+t_earn
+t_earn
+t_grain t_corn
+t_dlr t_money-fx
+t_dlr t_money-fx
+t_ship
+t_trade
+t_earn
+t_earn
+t_ship
+t_money-supply t_reserves
+t_earn
+t_earn
+t_earn
+t_jobs
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_ship
+t_earn
+t_acq
+t_acq
+t_acq
+t_acq
+t_acq
+t_acq
+t_grain t_corn t_cornglutenfeed t_meal-feed
+t_earn
+t_earn
+t_acq
+t_acq
+t_acq
+t_acq
+t_gnp
+t_tapioca t_meal-feed
+t_iron-steel
+t_crude
+t_money-fx t_interest
+t_crude
+t_interest
+t_acq
+t_earn
+t_ship
+t_acq
+t_money-supply
+t_rubber
+t_acq
+t_money-fx
+t_acq
+t_orange
+t_ship
+t_earn
+t_crude
+t_orange
+t_zinc
+t_acq
+t_coffee
+t_interest
+t_earn
+t_trade
+t_lead
+t_acq
+t_cocoa
+t_acq t_earn
+t_acq
+t_earn
+t_earn
+t_grain t_wheat
+t_hog t_l-cattle t_livestock
+t_oilseed t_soybean t_grain t_corn t_wheat
+t_acq
+t_acq
+t_crude
+t_acq
+t_grain
+t_gold
+t_earn
+t_gnp
+t_grain t_corn t_wheat t_rice
+t_earn
+t_interest
+t_grain t_ship
+t_acq
+t_grain
+t_acq
+t_grain t_wheat t_corn
+t_acq
+t_crude
+t_oilseed t_soybean
+t_earn
+t_earn
+t_acq
+t_crude
+t_sugar
+t_earn
+t_money-fx t_yen t_trade
+t_earn
+t_oilseed t_soybean t_veg-oil t_palm-oil t_coconut-oil
+t_acq
+t_trade
+t_earn
+t_crude
+t_acq
+t_earn
+t_earn
+t_sugar
+t_earn
+t_earn
+t_acq
+t_money-fx
+t_copper t_earn
+t_sugar
+t_earn
+t_earn
+t_money-fx t_stg
+t_earn
+t_earn
+t_acq
+t_housing
+t_money-fx
+t_grain t_wheat
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_ship
+t_earn
+t_interest
+t_ship
+t_earn
+t_acq
+t_gnp
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_orange
+t_earn
+t_earn
+t_earn
+t_trade
+t_earn
+t_acq
+t_acq
+t_earn
+t_lumber t_plywood
+t_earn
+t_crude
+t_acq
+t_earn
+t_grain t_corn t_soybean t_oilseed
+t_crude
+t_earn
+t_acq
+t_earn
+t_interest t_retail t_ipi
+t_crude t_nat-gas t_iron-steel
+t_earn
+t_earn
+t_trade
+t_jobs
+t_money-fx
+t_trade
+t_ship t_iron-steel
+t_acq
+t_acq
+t_grain t_wheat
+t_reserves
+t_oilseed t_soybean
+t_earn
+t_oilseed t_rapeseed t_soybean t_sunseed
+t_trade
+t_money-fx
+t_earn
+t_earn
+t_sugar
+t_earn
+t_sugar
+t_earn
+t_trade
+t_earn
+t_tin
+t_money-fx t_interest
+t_money-fx
+t_earn
+t_acq
+t_acq
+t_earn
+t_retail
+t_trade
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_acq t_ship
+t_earn
+t_earn t_crude t_nat-gas
+t_earn
+t_coffee
+t_money-fx t_interest
+t_earn
+t_grain t_barley
+t_earn
+t_grain t_corn
+t_veg-oil t_palm-oil
+t_earn
+t_crude
+t_earn
+t_earn
+t_earn
+t_earn
+t_bop
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_crude
+t_veg-oil
+t_earn
+t_acq
+t_crude
+t_interest
+t_earn
+t_acq
+t_crude t_nat-gas
+t_grain t_wheat
+t_crude
+t_earn
+t_interest
+t_earn
+t_carcass t_livestock
+t_money-supply
+t_acq
+t_earn
+t_crude
+t_money-supply
+t_earn
+t_crude
+t_earn
+t_l-cattle t_livestock
+t_earn
+t_crude
+t_grain t_wheat t_corn t_oilseed t_soybean
+t_money-supply t_interest
+t_acq
+t_ship
+t_acq
+t_acq
+t_trade
+t_earn
+t_gold
+t_earn
+t_veg-oil t_palm-oil
+t_trade
+t_crude
+t_acq
+t_money-fx t_yen
+t_veg-oil t_palm-oil
+t_crude
+t_earn
+t_money-fx t_yen
+t_crude
+t_ship
+t_earn
+t_earn
+t_ship
+t_earn
+t_earn
+t_earn
+t_acq
+t_acq
+t_acq
+t_grain t_corn
+t_livestock t_hog
+t_earn
+t_crude
+t_earn
+t_acq
+t_earn
+t_interest t_gnp t_ipi t_wpi
+t_earn
+t_acq
+t_earn
+t_nat-gas t_crude
+t_acq
+t_acq
+t_earn
+t_earn
+t_acq
+t_earn
+t_money-supply
+t_acq
+t_earn
+t_acq
+t_earn
+t_earn
+t_acq
+t_acq
+t_crude
+t_interest
+t_rubber
+t_iron-steel
+t_iron-steel t_zinc t_lead
+t_cocoa
+t_money-fx
+t_money-fx
+t_acq
+t_money-fx t_yen t_gnp
+t_earn
+t_cpi
+t_money-fx t_interest
+t_gold
+t_crude
+t_earn
+t_earn
+t_money-fx t_grain t_corn
+t_earn
+t_earn
+t_earn
+t_cpi
+t_pet-chem
+t_earn
+t_earn
+t_earn
+t_earn
+t_gnp
+t_acq
+t_cpu
+t_trade
+t_trade
+t_acq
+t_earn
+t_earn
+t_crude t_ship
+t_gold
+t_trade
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_grain t_corn
+t_grain t_wheat
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_trade
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_acq
+t_acq
+t_trade
+t_bop
+t_bop t_trade t_austdlr t_money-fx t_interest
+t_trade t_bop
+t_rubber
+t_gnp
+t_gnp
+t_earn
+t_oilseed
+t_reserves t_money-fx
+t_gnp
+t_ship t_crude
+t_cocoa
+t_housing
+t_copper
+t_earn
+t_trade
+t_earn
+t_money-fx
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_acq
+t_earn
+t_trade
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_copper
+t_acq
+t_acq
+t_acq
+t_earn
+t_money-fx t_interest
+t_earn
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_money-fx
+t_grain t_wheat t_rice
+t_crude
+t_interest
+t_acq
+t_housing t_interest t_gnp
+t_earn
+t_earn
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_grain t_wheat t_corn
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_grain t_wheat
+t_earn
+t_earn
+t_grain t_wheat
+t_veg-oil t_palm-oil
+t_earn
+t_earn
+t_interest
+t_acq
+t_veg-oil t_coconut-oil
+t_nat-gas
+t_gnp
+t_acq
+t_acq
+t_money-fx
+t_money-fx t_interest
+t_interest
+t_acq
+t_earn
+t_earn
+t_l-cattle
+t_cocoa
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_trade t_cotton t_iron-steel t_naphtha t_veg-oil t_palm-oil
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_gnp t_trade
+t_earn
+t_crude t_nat-gas
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_acq
+t_gold
+t_earn
+t_rubber
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_ship
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_trade
+t_acq
+t_crude t_gas
+t_earn
+t_crude t_nat-gas
+t_earn
+t_earn
+t_cpi
+t_earn
+t_sugar
+t_sugar
+t_ship
+t_grain t_wheat
+t_jobs
+t_trade
+t_acq
+t_acq
+t_earn
+t_earn
+t_reserves
+t_earn
+t_veg-oil t_soy-oil
+t_zinc
+t_money-fx
+t_money-supply
+t_acq
+t_veg-oil t_oilseed t_soybean
+t_earn
+t_acq
+t_jobs
+t_earn
+t_gold
+t_crude
+t_earn
+t_coffee
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_trade
+t_gas t_crude
+t_gas t_crude
+t_earn
+t_iron-steel
+t_earn
+t_ship
+t_grain t_corn t_wheat t_barley
+t_earn
+t_earn
+t_earn
+t_gnp
+t_earn
+t_acq
+t_earn
+t_earn
+t_acq
+t_acq
+t_earn
+t_coffee
+t_earn
+t_earn
+t_grain t_corn
+t_heat t_naphtha t_jet t_fuel
+t_acq
+t_money-supply
+t_earn
+t_earn
+t_trade
+t_earn
+t_acq
+t_earn
+t_earn
+t_ship
+t_trade
+t_ship
+t_earn
+t_earn
+t_grain t_rice t_wheat t_tea t_sugar
+t_money-fx t_interest
+t_alum
+t_alum
+t_cpi
+t_gnp
+t_alum
+t_acq
+t_earn
+t_trade
+t_acq
+t_trade
+t_earn
+t_interest
+t_crude
+t_trade t_iron-steel t_cotton
+t_trade
+t_acq
+t_gold t_silver
+t_acq
+t_acq
+t_earn
+t_acq
+t_earn
+t_earn
+t_money-fx t_interest
+t_acq
+t_earn
+t_earn
+t_trade
+t_earn
+t_money-supply
+t_acq
+t_earn
+t_earn
+t_lead t_zinc
+t_earn
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_acq
+t_earn
+t_acq
+t_earn
+t_orange
+t_earn
+t_acq
+t_earn
+t_acq t_ship
+t_earn
+t_acq
+t_acq
+t_earn
+t_acq
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_trade
+t_earn
+t_ipi
+t_crude
+t_trade
+t_earn
+t_trade
+t_earn
+t_trade t_oilseed t_grain
+t_interest
+t_money-fx t_interest
+t_crude
+t_earn
+t_trade t_bop
+t_grain t_wheat
+t_money-fx t_interest
+t_interest
+t_crude t_ship
+t_money-fx t_dlr t_trade
+t_coffee
+t_ship
+t_coffee t_ship
+t_rubber
+t_cpi
+t_acq
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_sugar
+t_earn
+t_earn
+t_ship t_grain t_oilseed
+t_earn
+t_interest
+t_gnp
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_acq
+t_tin
+t_crude t_ship
+t_earn
+t_earn
+t_acq
+t_acq
+t_grain t_oilseed t_corn
+t_acq
+t_earn
+t_acq
+t_ship t_crude
+t_earn
+t_earn
+t_earn
+t_money-fx t_dlr
+t_trade
+t_reserves t_trade t_money-fx
+t_crude
+t_money-fx
+t_earn
+t_grain
+t_acq
+t_earn
+t_crude
+t_earn t_crude t_nat-gas
+t_earn
+t_ipi
+t_money-fx
+t_crude
+t_crude t_ship
+t_grain
+t_ship
+t_retail
+t_livestock
+t_earn
+t_money-fx
+t_potato
+t_money-fx t_interest t_money-supply
+t_money-fx
+t_money-fx t_dlr
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_crude
+t_earn
+t_earn
+t_alum
+t_earn
+t_acq
+t_crude t_gas
+t_acq
+t_acq
+t_grain t_corn
+t_earn t_crude t_gas
+t_acq
+t_earn
+t_earn
+t_acq
+t_earn
+t_trade
+t_grain t_corn t_oilseed t_soybean
+t_acq
+t_earn
+t_acq
+t_sugar
+t_acq
+t_acq
+t_grain t_corn
+t_acq
+t_money-supply
+t_acq
+t_earn
+t_earn
+t_money-fx t_dlr
+t_sugar
+t_money-fx
+t_earn
+t_iron-steel
+t_money-fx t_yen
+t_coffee t_tea t_rubber
+t_cpi
+t_money-fx t_saudriyal
+t_trade
+t_veg-oil t_sun-oil
+t_trade
+t_iron-steel
+t_sugar
+t_acq
+t_earn
+t_earn
+t_earn
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_money-fx t_dlr
+t_acq
+t_acq
+t_sugar
+t_earn
+t_earn
+t_trade
+t_earn
+t_tea t_orange
+t_earn
+t_earn
+t_rand
+t_ship
+t_interest t_money-fx
+t_earn
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_crude
+t_acq
+t_earn
+t_acq
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_trade
+t_acq
+t_earn
+t_acq
+t_earn
+t_jet
+t_livestock t_hog
+t_earn
+t_earn
+t_trade
+t_trade
+t_earn
+t_earn
+t_crude t_gas
+t_acq
+t_trade
+t_earn
+t_trade
+t_money-fx
+t_money-fx
+t_money-fx t_interest
+t_earn
+t_earn
+t_livestock t_carcass
+t_trade
+t_bop t_trade
+t_earn
+t_acq
+t_earn
+t_trade t_bop t_interest t_stg t_money-fx
+t_money-fx t_interest
+t_money-fx
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_alum
+t_trade t_jobs
+t_cocoa
+t_earn
+t_reserves
+t_ship
+t_acq t_crude
+t_acq
+t_earn
+t_earn
+t_interest
+t_acq t_crude
+t_earn
+t_grain t_corn t_barley
+t_earn
+t_earn
+t_interest
+t_acq
+t_acq
+t_acq
+t_crude t_nat-gas
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_cotton
+t_money-fx t_dlr
+t_earn
+t_earn
+t_earn
+t_earn
+t_grain t_sugar t_livestock t_carcass
+t_earn
+t_money-supply
+t_interest
+t_earn
+t_earn
+t_money-supply
+t_money-supply
+t_earn
+t_money-supply
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_trade
+t_interest
+t_ipi
+t_earn
+t_money-fx t_dlr
+t_earn
+t_grain t_corn
+t_alum
+t_alum
+t_trade
+t_money-fx
+t_sugar
+t_trade
+t_trade t_bop
+t_money-fx t_dlr
+t_earn
+t_earn
+t_money-fx
+t_acq
+t_interest
+t_earn
+t_cocoa
+t_earn
+t_earn
+t_cpi
+t_acq
+t_acq
+t_pet-chem
+t_crude t_ship
+t_money-supply
+t_income
+t_earn
+t_coffee
+t_ship t_crude
+t_earn
+t_money-fx t_dlr
+t_money-fx t_dlr
+t_money-fx t_dlr
+t_acq
+t_earn
+t_oilseed t_soybean
+t_oilseed t_coconut
+t_acq
+t_earn
+t_money-supply
+t_ship
+t_money-supply
+t_oilseed t_sunseed t_rapeseed t_veg-oil t_sun-oil t_rape-oil
+t_acq
+t_money-fx t_dlr t_yen
+t_trade t_money-fx
+t_acq
+t_sugar t_ship
+t_money-fx t_yen
+t_money-fx t_trade
+t_money-fx
+t_earn
+t_gnp
+t_grain t_wheat t_rice
+t_acq
+t_earn
+t_acq
+t_acq
+t_money-fx
+t_money-fx
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_acq
+t_acq
+t_earn
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_iron-steel
+t_grain t_wheat
+t_dlr t_money-fx
+t_iron-steel
+t_iron-steel t_alum t_earn
+t_bop
+t_crude
+t_earn
+t_housing
+t_earn
+t_trade
+t_earn
+t_acq
+t_grain t_wheat t_barley
+t_money-fx t_dlr t_dmk
+t_sugar
+t_earn
+t_acq
+t_money-fx t_interest
+t_trade t_yen t_dlr
+t_money-fx
+t_trade
+t_lei
+t_earn
+t_carcass
+t_money-fx t_trade
+t_money-fx
+t_earn
+t_interest
+t_sugar
+t_earn
+t_earn
+t_acq
+t_gnp t_lei
+t_acq
+t_money-fx t_interest
+t_ship
+t_acq
+t_sugar
+t_grain t_wheat
+t_acq
+t_acq
+t_money-fx
+t_crude
+t_earn
+t_money-fx
+t_earn
+t_coffee t_sugar t_cocoa
+t_acq
+t_nat-gas
+t_earn
+t_trade
+t_cotton
+t_earn
+t_lei
+t_crude
+t_earn
+t_acq
+t_acq
+t_earn
+t_earn
+t_crude t_nat-gas
+t_gold
+t_interest
+t_earn
+t_earn
+t_earn
+t_crude t_gas
+t_iron-steel
+t_earn
+t_interest
+t_earn
+t_earn
+t_crude
+t_acq
+t_trade
+t_dlr t_money-fx
+t_tin
+t_acq
+t_acq
+t_interest
+t_acq
+t_wheat t_grain
+t_gold t_silver
+t_earn
+t_earn
+t_acq
+t_grain
+t_acq
+t_earn
+t_earn
+t_wheat t_barley t_corn t_rapeseed t_grain t_oilseed t_ship
+t_acq
+t_earn
+t_interest
+t_acq
+t_acq
+t_ship t_grain t_oilseed
+t_acq
+t_earn
+t_veg-oil
+t_earn
+t_lead
+t_money-fx t_dlr t_dmk
+t_copper
+t_earn
+t_interest
+t_earn
+t_acq
+t_earn
+t_acq
+t_acq t_strategic-metal
+t_wheat t_grain
+t_earn
+t_cpi
+t_interest
+t_acq
+t_sugar
+t_earn
+t_acq
+t_sugar
+t_dlr t_money-fx
+t_earn
+t_earn
+t_acq
+t_gas
+t_acq
+t_acq
+t_earn
+t_silver
+t_interest
+t_earn
+t_interest
+t_earn
+t_crude
+t_acq
+t_earn
+t_earn
+t_earn
+t_interest
+t_earn
+t_acq
+t_corn t_grain
+t_livestock
+t_acq
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_money-fx t_interest t_dlr
+t_ipi
+t_earn
+t_money-fx
+t_sugar
+t_money-fx t_reserves
+t_grain t_corn t_sorghum
+t_oilseed t_soybean t_soy-meal t_veg-oil t_soy-oil
+t_grain t_corn
+t_acq
+t_money-fx t_interest
+t_acq
+t_money-fx t_interest
+t_copper t_lead t_zinc t_silver t_nickel t_alum
+t_wool
+t_earn
+t_jobs
+t_earn
+t_earn
+t_money-fx t_dlr t_dmk
+t_acq
+t_jobs
+t_earn
+t_earn
+t_money-fx t_interest
+t_earn
+t_earn
+t_earn
+t_grain t_corn
+t_stg t_money-fx
+t_stg t_money-fx
+t_grain t_wheat
+t_copper
+t_earn
+t_earn
+t_stg t_money-fx
+t_copper
+t_interest
+t_coffee
+t_copper
+t_interest
+t_acq
+t_earn
+t_grain t_wheat t_corn t_oilseed t_soybean
+t_oilseed t_rapeseed
+t_grain t_wheat t_corn t_oilseed t_soybean
+t_acq
+t_acq
+t_trade
+t_soybean t_oilseed
+t_grain t_ship
+t_sugar
+t_dlr t_money-fx
+t_money-fx
+t_interest
+t_reserves
+t_jobs
+t_money-fx t_interest
+t_grain
+t_earn
+t_interest
+t_ship t_grain
+t_nat-gas
+t_earn
+t_interest
+t_acq
+t_interest
+t_money-fx t_interest
+t_crude
+t_acq
+t_acq
+t_acq
+t_money-supply
+t_earn
+t_interest
+t_earn
+t_acq
+t_acq
+t_earn
+t_grain t_rice
+t_earn
+t_earn
+t_tin
+t_coffee
+t_earn
+t_acq
+t_acq
+t_earn
+t_coffee
+t_money-fx
+t_reserves
+t_money-fx
+t_crude
+t_crude
+t_retail
+t_sugar
+t_instal-debt
+t_cocoa
+t_money-supply
+t_money-fx t_dlr
+t_acq
+t_ipi
+t_earn
+t_trade
+t_copper
+t_nat-gas
+t_earn
+t_acq
+t_earn
+t_earn
+t_grain t_barley
+t_trade
+t_grain t_wheat t_corn t_sorghum t_barley t_oat
+t_earn
+t_copper t_zinc
+t_trade
+t_crude t_ship
+t_earn
+t_acq
+t_ship t_crude
+t_trade
+t_acq
+t_copper t_nickel
+t_acq
+t_earn
+t_crude
+t_earn
+t_copper
+t_copper
+t_ship
+t_heat
+t_instal-debt
+t_acq
+t_earn
+t_acq
+t_sugar t_ship
+t_grain t_ship
+t_grain t_wheat
+t_grain t_wheat
+t_earn
+t_earn
+t_earn
+t_dlr t_money-fx t_trade t_cpi t_money-supply
+t_trade t_grain t_rice t_corn t_sugar t_tin t_rubber
+t_ship
+t_grain t_wheat
+t_acq
+t_acq t_copper
+t_money-fx t_interest
+t_acq
+t_interest t_money-fx
+t_earn
+t_acq
+t_earn
+t_sugar
+t_earn
+t_acq
+t_earn
+t_ship
+t_earn
+t_earn
+t_acq
+t_earn
+t_money-fx
+t_sugar
+t_earn
+t_earn
+t_grain t_corn
+t_acq
+t_pet-chem t_crude t_acq t_earn
+t_acq
+t_earn
+t_earn
+t_acq
+t_earn
+t_grain t_wheat
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_acq
+t_acq
+t_earn
+t_earn
+t_money-fx
+t_crude t_earn
+t_money-supply
+t_earn
+t_earn
+t_acq
+t_earn
+t_interest
+t_earn
+t_earn
+t_earn
+t_gas t_crude
+t_veg-oil t_grain t_corn t_wheat
+t_gas t_crude
+t_crude t_gas
+t_jobs
+t_grain t_rice
+t_alum
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_trade
+t_yen
+t_trade
+t_trade t_money-fx
+t_acq
+t_earn
+t_earn
+t_acq
+t_money-fx
+t_earn
+t_money-fx
+t_money-fx t_interest
+t_coffee
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_interest
+t_acq
+t_interest
+t_potato
+t_money-fx
+t_cotton
+t_corn t_grain
+t_acq
+t_earn
+t_grain t_barley t_corn t_wheat
+t_oilseed t_soybean t_grain t_corn t_wheat
+t_money-fx
+t_grain t_ship
+t_acq
+t_oilseed t_rapeseed
+t_grain t_ship t_wheat t_barley
+t_earn
+t_earn
+t_earn
+t_reserves
+t_earn
+t_earn
+t_interest
+t_acq
+t_earn
+t_earn
+t_orange
+t_orange
+t_grain t_corn t_wheat
+t_earn
+t_grain t_oilseed t_meal-feed t_veg-oil t_wheat t_corn t_soybean t_soy-oil t_soy-meal t_cotton
+t_acq
+t_grain t_corn
+t_earn
+t_grain
+t_acq
+t_meal-feed t_soy-meal
+t_fuel
+t_grain t_wheat
+t_earn
+t_earn
+t_livestock
+t_acq
+t_earn
+t_acq
+t_earn
+t_copper
+t_money-supply
+t_acq
+t_acq
+t_acq t_crude t_nat-gas
+t_earn
+t_acq
+t_earn
+t_money-fx t_dlr
+t_money-fx t_dlr
+t_grain t_wheat t_corn t_sorghum t_oat
+t_crude
+t_earn
+t_sugar
+t_cocoa
+t_grain t_corn t_rice
+t_dlr t_money-fx
+t_copper
+t_coffee
+t_trade t_wpi t_cpi t_income t_retail
+t_trade
+t_acq
+t_earn
+t_acq
+t_cocoa
+t_gnp t_jobs t_bop t_cpi
+t_money-fx
+t_zinc
+t_gnp
+t_acq
+t_earn
+t_nat-gas
+t_trade
+t_earn
+t_grain t_wheat
+t_earn
+t_earn
+t_money-supply
+t_acq
+t_lei
+t_fuel
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_acq
+t_earn
+t_cpi
+t_earn
+t_acq
+t_acq
+t_earn
+t_earn
+t_acq
+t_acq
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_acq
+t_grain t_corn t_wheat t_oilseed t_soybean
+t_earn
+t_earn
+t_acq
+t_grain t_corn
+t_earn
+t_earn
+t_earn
+t_earn
+t_crude
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_crude
+t_dlr t_money-fx
+t_grain t_corn
+t_grain t_trade
+t_grain t_corn
+t_lei
+t_wpi
+t_rubber
+t_trade
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_grain t_rice
+t_grain t_rice t_trade
+t_earn t_alum
+t_trade
+t_sugar
+t_hog t_livestock
+t_retail
+t_heat
+t_crude
+t_copper
+t_acq
+t_acq
+t_cpi
+t_crude
+t_earn
+t_money-supply
+t_earn
+t_tea
+t_sugar
+t_money-fx t_dlr
+t_interest
+t_crude t_nat-gas t_pet-chem t_acq
+t_trade
+t_trade
+t_grain t_corn t_sorghum
+t_crude t_nat-gas
+t_crude t_nat-gas
+t_acq
+t_crude t_nat-gas
+t_earn
+t_acq
+t_acq t_gold
+t_ipi
+t_crude t_nat-gas t_gas t_pet-chem
+t_veg-oil
+t_acq
+t_grain t_wheat
+t_money-supply
+t_ipi t_trade
+t_livestock t_f-cattle t_pork-belly t_l-cattle t_carcass
+t_acq
+t_trade
+t_silver
+t_ipi
+t_trade
+t_gnp
+t_money-fx t_dlr t_interest
+t_money-supply
+t_acq
+t_trade
+t_grain t_rice
+t_money-fx
+t_sugar
+t_money-fx
+t_money-fx t_trade
+t_tin
+t_money-fx t_dlr
+t_money-fx
+t_crude t_nat-gas
+t_nat-gas
+t_dlr t_money-fx
+t_gnp
+t_money-supply t_reserves
+t_income t_ipi
+t_oilseed t_grain t_veg-oil
+t_hog t_livestock
+t_livestock
+t_lei t_gnp
+t_ship
+t_crude t_nat-gas
+t_ship
+t_cpi
+t_cpi
+t_ship
+t_earn
+t_interest
+t_ship
+t_gas
+t_interest
+t_acq
+t_nat-gas t_ship
+t_acq
+t_tea
+t_acq
+t_acq
+t_acq
+t_grain t_wheat
+t_money-fx
+t_earn
+t_acq
+t_acq
+t_acq
+t_acq
+t_money-fx t_interest
+t_acq
+t_earn
+t_crude
+t_jobs
+t_acq
+t_earn
+t_acq
+t_alum
+t_alum
+t_acq
+t_acq
+t_acq
+t_acq
+t_tin
+t_money-fx
+t_money-fx
+t_crude
+t_acq
+t_earn
+t_acq
+t_acq
+t_crude
+t_acq t_hog
+t_acq
+t_acq
+t_acq
+t_alum
+t_interest
+t_money-fx
+t_trade
+t_money-fx
+t_acq
+t_earn
+t_reserves t_interest
+t_gnp
+t_money-fx t_dlr
+t_crude
+t_acq
+t_alum
+t_earn
+t_interest
+t_ship t_sugar
+t_gold
+t_oilseed t_soybean t_soy-meal t_meal-feed
+t_interest t_money-fx
+t_acq
+t_pet-chem
+t_cocoa
+t_fuel
+t_ship
+t_trade
+t_earn
+t_grain t_wheat
+t_earn
+t_earn
+t_reserves
+t_acq t_crude t_nat-gas
+t_earn
+t_bop t_trade
+t_ship
+t_rubber
+t_grain t_wheat
+t_zinc
+t_gold
+t_crude
+t_copper
+t_crude t_heat t_gas
+t_lead t_zinc
+t_lead t_zinc
+t_lead t_zinc
+t_oilseed t_soybean
+t_ship
+t_oilseed t_soybean
+t_sugar
+t_acq
+t_cotton
+t_gnp
+t_interest
+t_strategic-metal
+t_acq
+t_acq
+t_meal-feed t_livestock t_carcass t_grain t_corn t_sorghum t_oilseed t_soy-meal t_rapeseed
+t_crude
+t_reserves
+t_jobs
+t_earn
+t_interest
+t_acq
+t_acq
+t_acq
+t_acq
+t_acq
+t_grain t_rice t_sugar
+t_interest
+t_livestock
+t_crude
+t_veg-oil
+t_earn
+t_money-fx t_interest
+t_crude
+t_iron-steel
+t_acq
+t_acq
+t_pet-chem
+t_ship
+t_coffee
+t_acq
+t_trade
+t_cotton
+t_grain t_barley t_wheat
+t_acq
+t_nat-gas
+t_alum
+t_money-supply
+t_grain t_corn
+t_acq
+t_gnp t_jobs t_cpi
+t_earn
+t_acq
+t_interest
+t_money-supply t_money-fx t_dlr
+t_alum
+t_acq
+t_earn
+t_acq
+t_trade
+t_cpi
+t_gas
+t_groundnut
+t_crude t_nat-gas
+t_interest
+t_acq
+t_crude
+t_earn
+t_trade
+t_earn
+t_acq
+t_ship
+t_acq
+t_earn
+t_grain t_wheat t_oat t_barley
+t_acq
+t_acq
+t_grain t_wheat
+t_alum
+t_acq
+t_sugar
+t_acq
+t_acq
+t_acq
+t_ship t_crude
+t_acq
+t_acq
+t_trade
+t_nat-gas
+t_nat-gas
+t_acq
+t_earn
+t_earn
+t_coffee
+t_crude
+t_money-fx t_nkr
+t_trade t_livestock t_hog
+t_interest
+t_earn
+t_earn
+t_bop
+t_trade
+t_earn
+t_acq t_oilseed t_sunseed t_soybean
+t_earn
+t_acq
+t_earn
+t_acq
+t_acq
+t_trade t_tea t_coffee t_cotton t_castor-oil
+t_earn
+t_acq
+t_ship t_crude
+t_acq
+t_interest t_money-fx
+t_acq
+t_acq
+t_grain t_corn t_oilseed t_soybean
+t_acq
+t_acq
+t_acq
+t_acq
+t_acq
+t_interest
+t_earn
+t_coffee
+t_earn
+t_acq
+t_crude
+t_acq
+t_crude t_naphtha t_pet-chem
+t_acq
+t_earn
+t_acq
+t_acq
+t_money-fx
+t_money-fx
+t_cocoa
+t_interest
+t_rubber
+t_gold t_copper
+t_housing
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_grain t_wheat
+t_earn
+t_grain t_wheat
+t_ship
+t_earn
+t_crude
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_money-fx
+t_money-fx
+t_earn
+t_earn
+t_earn
+t_money-fx
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_trade t_carcass
+t_earn
+t_ship t_crude
+t_trade
+t_money-fx
+t_earn
+t_money-fx t_interest
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_grain t_wheat
+t_acq
+t_ship
+t_acq
+t_trade t_grain t_corn
+t_earn
+t_crude
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_crude
+t_earn
+t_ship
+t_acq
+t_acq
+t_trade
+t_ship t_crude
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_crude t_ship
+t_acq
+t_earn
+t_money-fx
+t_earn
+t_acq
+t_acq
+t_earn
+t_earn
+t_crude t_ship
+t_acq
+t_acq
+t_crude t_ship
+t_earn
+t_crude
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_acq
+t_acq
+t_earn
+t_oilseed t_soybean t_grain t_wheat t_corn
+t_acq
+t_bop
+t_acq
+t_earn
+t_interest
+t_acq
+t_earn
+t_earn
+t_grain t_veg-oil
+t_grain
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_cpu
+t_earn
+t_earn
+t_earn
+t_acq
+t_silver t_gold
+t_earn
+t_acq
+t_money-fx
+t_earn
+t_acq
+t_interest
+t_earn
+t_livestock t_carcass t_hog
+t_earn
+t_acq
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_earn
+t_acq
+t_earn
+t_earn
+t_ship t_crude
+t_propane t_ship
+t_acq
+t_interest t_money-fx
+t_ship
+t_money-fx
+t_crude
+t_money-fx t_dlr t_yen t_dmk
+t_earn
+t_earn
+t_acq
+t_rubber
+t_trade
+t_crude
+t_money-fx t_dlr t_yen
+t_ship
