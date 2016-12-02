@@ -36,11 +36,10 @@ def classifyTestDocs():
                         rule_matched = False
                         break
                 if rule_matched:
-                    # print rule
                     predicted_classes.append(rule[0])
                     unique_topics.add(rule[0])
                     matched_rules_count += 1
-                    if len(predicted_classes) >= 1:
+                    if len(predicted_classes) >= 3:
                         break
             predictList.append(predicted_classes)
     print unique_topics
@@ -48,6 +47,7 @@ def classifyTestDocs():
 def parseTestTopics():
     with open("./testDataRules") as fileObject:
         for topicLine in fileObject:
+            # print "TopicLine:",topicLine
             topics = topicLine[:-1].split(" ")
             testTopics.append(topics)
 
@@ -69,7 +69,7 @@ def predictAccuracy():
     return match_count*100/float(len(predictList))
 
 def plotGraph(plotAccuracy):
-    split = 15
+    split = 21
     supportList = [item[0] for item in configs[:split]]
     confidenceList = [item[1] for item in configs[split:]]
     plt.xlabel('support')
@@ -78,7 +78,7 @@ def plotGraph(plotAccuracy):
         plt.ylabel('Accuracy')
         plt.plot(supportList, accuracies[:split], linewidth=2.0, marker='o')
     else:
-        plt.ylabel('Time taken')
+        plt.ylabel('Time taken(sec)')
         plt.plot(supportList, times[:split], linewidth=2.0, marker='o')
     plt.show()
     plt.xlabel('confidence')
@@ -90,44 +90,63 @@ def plotGraph(plotAccuracy):
     # plt.setp(lines, color='r', linewidth=2.0)
     # print plot
 
+def generateGraphsForVariousSupportValues():
+    configs = []
+    parseTestTopics()
+    for i in range(1,21):
+        configs.append((i,10))
+    accuracies = []
+    times = []
+    offlinecosts = []
+    onlinecosts = []
+    onlinePerTuples = []
+    for config in configs:
+        start_time = time.time()
+        support = "-s" + str(config[0])
+        confidence = "-c" + str(config[1])
+        parsing_end_time = time.time()
+        # #rulesFile = open("./rules.txt", "w+")
+        returnValue = check_call(['./apriori', '-tr', support, confidence, '-Rappearances.txt', 'inputToCBAClassifier', './rulesFile'])
+        offline_time = time.time()
+        offlinecosts.append( offline_time - start_time)
+        print("\nTime taken to generate rules ----- %s" %(time.time() - parsing_end_time))
+        if(returnValue == 0):
+            print "Success"
+        else:
+            print "Failed"
+        rulesList = []
+        predictList = []
+        parseRules()
+        rulesList.sort(cmpRules)
+        classifyTestDocs()
+        # print rulesList
+        print predictList
+        acc = predictAccuracy()
+        print acc
+        accuracies.append(acc)
+        times.append( time.time() - start_time)
+        onlinecosts.append(time.time() - offline_time)
+        pertupleTime = (time.time() - offline_time)/ float(len(predictList))
+        onlinePerTuples.append(pertupleTime)
+    plotGraph(True)
+    plotGraph(False)
+    print "Online per tuple:",onlinePerTuples
+    print "OfflineCosts:",offlinecosts
+    print "OnlineCosts:",onlinecosts
+    print "TotalTimes:",times
+    print "Accuracies",accuracies
+# print("\nTime taken to generate rules ----- %s" %(time.time() - parsing_end_time))
 
-configs = []
 testTopics = []
+rulesList = []
+predictList = []
 parseTestTopics()
-for i in range(1,16):
-    configs.append((i,10))
-
-accuracies = []
-times = []
-for config in configs:
-    start_time = time.time()
-    support = "-s" + str(config[0])
-    confidence = "-c" + str(config[1])
-    parsing_end_time = time.time()
-    # #rulesFile = open("./rules.txt", "w+")
-    returnValue = check_call(['./apriori', '-tr', support, confidence, '-Rappearances.txt', 'inputToCBAClassifier', './rulesFile'])
-    print("\nTime taken to generate rules ----- %s" %(time.time() - parsing_end_time))
-    if(returnValue == 0):
-        print "Success"
-    else:
-        print "Failed"
-    rulesList = []
-    predictList = []
-    parseRules()
-    rulesList.sort(cmpRules)
-    classifyTestDocs()
-    # print rulesList
-    print predictList
-    acc = predictAccuracy()
-    print acc
-    accuracies.append(acc)
-    times.append( time.time() - start_time)
-plotGraph(True)
-plotGraph(False)
-
-print("\nTime taken to generate rules ----- %s" %(time.time() - parsing_end_time))
-
-
-
+parseRules()
+rulesList.sort(cmpRules)
+classifyTestDocs()
+print rulesList
+print predictList
+acc = predictAccuracy()
+print "Accuracy:",acc
 
 # cbaClassifier.predictClasses()
